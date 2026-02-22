@@ -1,0 +1,69 @@
+---
+title: Dialog
+description: 사용자와의 상호작용을 위한 모달 다이얼로그입니다.
+---
+
+import {
+  DialogRoot, DialogTrigger, DialogContent,
+  DialogHeader, DialogTitle, DialogDescription,
+  DialogFooter, DialogClose,
+} from "@huxley-ui/ui/components/dialog";
+import { Button } from "@huxley-ui/ui/components/button";
+
+## Preview
+
+<div className="flex gap-4 p-4 border rounded-lg">
+  <DialogRoot>
+    <DialogTrigger render={<Button appearance="subtle" size="large" />}>
+      Dialog 열기
+    </DialogTrigger>
+    <DialogContent>
+      <DialogClose />
+      <DialogHeader>
+        <DialogTitle>제목</DialogTitle>
+        <DialogDescription>설명 텍스트입니다.</DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <DialogClose render={<Button appearance="ghost" size="medium" />}>취소</DialogClose>
+        <Button size="medium">저장</Button>
+      </DialogFooter>
+    </DialogContent>
+  </DialogRoot>
+</div>
+
+## Installation
+
+```tsx title="components/ui/dialog.tsx"
+// Copy from packages/ui/components/dialog.tsx
+```
+
+## Sizes
+
+```tsx
+<DialogContent size="default">  {/* 480px */}
+<DialogContent size="medium">   {/* 720px */}
+<DialogContent size="large">    {/* 1080px */}
+```
+
+## Directional Footer
+
+```tsx
+<DialogFooter variant="directional">
+  <Button appearance="ghost">이전</Button>
+  <Button>다음</Button>
+</DialogFooter>
+```
+
+## Props
+
+### DialogContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `"default" \| "medium" \| "large"` | `"default"` | 다이얼로그 너비 |
+
+### DialogFooter
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "directional"` | `"default"` | 버튼 정렬 |

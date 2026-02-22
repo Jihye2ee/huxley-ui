@@ -1,0 +1,74 @@
+---
+title: Menu
+description: 사용자에게 선택 가능한 동작 목록을 표시하는 드롭다운 메뉴입니다.
+---
+
+import {
+  MenuRoot, MenuTrigger, MenuContent,
+  MenuItem, MenuGroup, MenuGroupLabel, MenuSeparator,
+} from "@huxley-ui/ui/components/menu";
+import { Button } from "@huxley-ui/ui/components/button";
+
+## Preview
+
+<div className="flex gap-4 p-4 border rounded-lg">
+  <MenuRoot>
+    <MenuTrigger render={<Button size="medium" />}>
+      메뉴 열기
+    </MenuTrigger>
+    <MenuContent>
+      <MenuItem>편집</MenuItem>
+      <MenuItem>복제</MenuItem>
+      <MenuSeparator />
+      <MenuItem danger>삭제</MenuItem>
+    </MenuContent>
+  </MenuRoot>
+</div>
+
+## Installation
+
+```tsx title="components/ui/menu.tsx"
+// Copy from packages/ui/components/menu.tsx
+```
+
+## With Groups
+
+```tsx
+<MenuContent>
+  <MenuGroup>
+    <MenuGroupLabel>File</MenuGroupLabel>
+    <MenuItem>New</MenuItem>
+    <MenuItem>Open</MenuItem>
+  </MenuGroup>
+  <MenuSeparator />
+  <MenuGroup>
+    <MenuGroupLabel>Edit</MenuGroupLabel>
+    <MenuItem>Undo</MenuItem>
+    <MenuItem>Redo</MenuItem>
+  </MenuGroup>
+</MenuContent>
+```
+
+## Danger Items
+
+```tsx
+<MenuItem danger>삭제</MenuItem>
+```
+
+## Props
+
+### MenuItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `danger` | `boolean` | `false` | 위험 동작 스타일 |
+| `disabled` | `boolean` | `false` | 비활성화 |
+| `onSelect` | `() => void` | - | 선택 콜백 |
+
+### MenuContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `side` | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` | 표시 위치 |
+| `sideOffset` | `number` | `4` | 트리거와의 간격 |
+| `align` | `"start" \| "center" \| "end"` | `"start"` | 정렬 |

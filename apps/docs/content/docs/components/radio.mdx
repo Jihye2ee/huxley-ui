@@ -1,0 +1,71 @@
+---
+title: Radio
+description: 여러 옵션 중 하나를 선택할 수 있는 라디오 버튼입니다.
+---
+
+import { RadioGroup, RadioItem } from "@huxley-ui/ui/components/radio";
+
+## Preview
+
+<div className="flex flex-col gap-4 p-4 border rounded-lg">
+  <RadioGroup defaultValue="default">
+    <RadioItem value="default" label="Default" />
+    <RadioItem value="compact" label="Compact" />
+    <RadioItem value="comfortable" label="Comfortable" />
+  </RadioGroup>
+</div>
+
+## Installation
+
+```tsx title="components/ui/radio.tsx"
+// Copy from packages/ui/components/radio.tsx
+```
+
+## Small
+
+```tsx
+<RadioGroup defaultValue="a">
+  <RadioItem value="a" label="Small A" size="small" />
+  <RadioItem value="b" label="Small B" size="small" />
+</RadioGroup>
+```
+
+## Horizontal
+
+```tsx
+<RadioGroup orientation="horizontal" defaultValue="light">
+  <RadioItem value="light" label="Light" />
+  <RadioItem value="dark" label="Dark" />
+  <RadioItem value="system" label="System" />
+</RadioGroup>
+```
+
+## Disabled
+
+```tsx
+<RadioGroup disabled>
+  <RadioItem value="a" label="Disabled A" />
+  <RadioItem value="b" label="Disabled B" />
+</RadioGroup>
+```
+
+## Props
+
+### RadioGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | 선택된 값 (제어) |
+| `defaultValue` | `string` | - | 초기 선택 값 |
+| `onValueChange` | `(value: string) => void` | - | 변경 콜백 |
+| `orientation` | `"vertical" \| "horizontal"` | `"vertical"` | 배치 방향 |
+| `disabled` | `boolean` | `false` | 전체 비활성화 |
+
+### RadioItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | 항목 값 |
+| `label` | `ReactNode` | - | 레이블 |
+| `size` | `"default" \| "small"` | `"default"` | 라디오 크기 |
+| `disabled` | `boolean` | `false` | 비활성화 |

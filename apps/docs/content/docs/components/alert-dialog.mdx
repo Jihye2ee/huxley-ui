@@ -1,0 +1,104 @@
+---
+title: Alert Dialog
+description: 사용자의 확인이 필요한 중요한 동작을 위한 모달 다이얼로그입니다.
+---
+
+import {
+  AlertDialogRoot,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "@huxley-ui/ui/components/alert-dialog";
+import { Button } from "@huxley-ui/ui/components/button";
+
+## Preview
+
+<div className="flex gap-4 p-4 border rounded-lg">
+  <AlertDialogRoot>
+    <AlertDialogTrigger render={<Button appearance="error" size="medium" />}>계정 삭제</AlertDialogTrigger>
+    <AlertDialogContent>
+      <AlertDialogClose />
+      <AlertDialogTitle>정말 삭제하시겠습니까?</AlertDialogTitle>
+      <AlertDialogDescription>이 작업은 되돌릴 수 없습니다.</AlertDialogDescription>
+      <AlertDialogFooter>
+        <AlertDialogCancel render={<Button appearance="ghost" size="medium" />}>취소</AlertDialogCancel>
+        <AlertDialogAction render={<Button size="medium" />}>삭제</AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialogRoot>
+</div>
+
+## Installation
+
+```tsx title="components/ui/alert-dialog.tsx"
+// Copy from packages/ui/components/alert-dialog.tsx
+```
+
+## Usage
+
+```tsx
+import {
+  AlertDialogRoot, AlertDialogTrigger, AlertDialogContent,
+  AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
+  AlertDialogClose, AlertDialogAction, AlertDialogCancel,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
+export function Example() {
+  return (
+    <AlertDialogRoot>
+      <AlertDialogTrigger render={<Button appearance="error" size="medium" />}>
+        Delete
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogClose />
+        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+        <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+        <AlertDialogFooter>
+          <AlertDialogCancel render={<Button appearance="ghost" size="medium" />}>Cancel</AlertDialogCancel>
+          <AlertDialogAction render={<Button size="medium" />}>Confirm</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialogRoot>
+  );
+}
+```
+
+## Variants
+
+### Two Buttons
+
+```tsx
+<AlertDialogFooter>
+  <AlertDialogCancel render={<Button appearance="ghost" size="medium" />}>취소</AlertDialogCancel>
+  <AlertDialogAction render={<Button size="medium" />}>확인</AlertDialogAction>
+</AlertDialogFooter>
+```
+
+### Directional
+
+```tsx
+<AlertDialogFooter variant="directional">
+  <AlertDialogCancel render={<Button appearance="ghost" size="medium" />}>이전</AlertDialogCancel>
+  <AlertDialogAction render={<Button size="medium" />}>다음</AlertDialogAction>
+</AlertDialogFooter>
+```
+
+## Props
+
+### AlertDialogContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | 추가 CSS 클래스 |
+
+### AlertDialogFooter
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "directional"` | `"default"` | 버튼 정렬 방식 |

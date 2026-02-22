@@ -1,0 +1,69 @@
+---
+title: Combobox
+description: 검색 가능한 드롭다운 목록에서 항목을 선택할 수 있는 컴포넌트입니다.
+---
+
+import {
+  ComboboxRoot, ComboboxInput, ComboboxContent,
+  ComboboxItem, ComboboxEmpty,
+} from "@huxley-ui/ui/components/combobox";
+
+## Preview
+
+<div className="flex flex-col gap-4 p-4 border rounded-lg max-w-sm">
+  <ComboboxRoot>
+    <ComboboxInput placeholder="Select a fruit..." />
+    <ComboboxContent>
+      <ComboboxItem value="apple">Apple</ComboboxItem>
+      <ComboboxItem value="banana">Banana</ComboboxItem>
+      <ComboboxItem value="cherry">Cherry</ComboboxItem>
+      <ComboboxEmpty />
+    </ComboboxContent>
+  </ComboboxRoot>
+</div>
+
+## Installation
+
+```tsx title="components/ui/combobox.tsx"
+// Copy from packages/ui/components/combobox.tsx
+```
+
+## Usage
+
+```tsx
+import {
+  ComboboxRoot, ComboboxInput, ComboboxContent,
+  ComboboxItem, ComboboxEmpty,
+} from "@/components/ui/combobox";
+
+export function Example() {
+  return (
+    <ComboboxRoot>
+      <ComboboxInput placeholder="Search..." />
+      <ComboboxContent>
+        <ComboboxItem value="1">Option 1</ComboboxItem>
+        <ComboboxItem value="2">Option 2</ComboboxItem>
+        <ComboboxEmpty />
+      </ComboboxContent>
+    </ComboboxRoot>
+  );
+}
+```
+
+## States
+
+```tsx
+<ComboboxInput placeholder="Disabled" disabled />
+<ComboboxInput placeholder="Error" error />
+```
+
+## Props
+
+### ComboboxInput
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `inputSize` | `"md" \| "sm"` | `"md"` | 입력 크기 |
+| `error` | `boolean` | `false` | 에러 상태 |
+| `placeholder` | `string` | - | 플레이스홀더 |
+| `disabled` | `boolean` | `false` | 비활성화 |

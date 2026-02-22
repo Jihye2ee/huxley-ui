@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+
+# build output
+.next/
+out/
+dist/
+
+# env
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# turbo
+.turbo/
+
+# vercel
+.vercel/
+
+# misc
+*.tsbuildinfo
+.eslintcache

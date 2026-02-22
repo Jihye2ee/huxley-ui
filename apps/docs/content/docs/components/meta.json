@@ -1,0 +1,21 @@
+{
+  "title": "Components",
+  "pages": [
+    "accordion",
+    "alert-dialog",
+    "avatar",
+    "button",
+    "checkbox",
+    "checkbox-group",
+    "combobox",
+    "dialog",
+    "field",
+    "menu",
+    "popover",
+    "radio",
+    "select",
+    "slider",
+    "switch",
+    "toast"
+  ]
+}

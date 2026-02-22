@@ -1,0 +1,166 @@
+---
+title: Button
+description: 다양한 외형과 크기를 지원하는 버튼 컴포넌트입니다. 아이콘 버튼과 로딩 상태를 지원합니다.
+---
+
+import { Button } from "@huxley-ui/ui/components/button";
+
+
+## Preview
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button appearance="default">Default</Button>
+  <Button appearance="subtle">Subtle</Button>
+  <Button appearance="ghost">Ghost</Button>
+  <Button appearance="error">Error</Button>
+  <Button appearance="errorSubtle">Error Subtle</Button>
+</div>
+
+## Installation
+
+```tsx title="components/ui/button.tsx"
+// Copy from packages/ui/components/button.tsx
+```
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export function Example() {
+  return <Button appearance="default">버튼</Button>;
+}
+```
+
+## Appearance
+
+### Default
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button appearance="default" size="small">Small</Button>
+  <Button appearance="default" size="medium">Medium</Button>
+  <Button appearance="default" size="large">Large</Button>
+</div>
+
+```tsx
+<Button appearance="default">Default</Button>
+```
+
+### Subtle
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button appearance="subtle" size="small">Small</Button>
+  <Button appearance="subtle" size="medium">Medium</Button>
+  <Button appearance="subtle" size="large">Large</Button>
+</div>
+
+```tsx
+<Button appearance="subtle">Subtle</Button>
+```
+
+### Ghost
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button appearance="ghost" size="small">Small</Button>
+  <Button appearance="ghost" size="medium">Medium</Button>
+  <Button appearance="ghost" size="large">Large</Button>
+</div>
+
+```tsx
+<Button appearance="ghost">Ghost</Button>
+```
+
+### Error
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button appearance="error" size="small">Small</Button>
+  <Button appearance="error" size="medium">Medium</Button>
+  <Button appearance="error" size="large">Large</Button>
+</div>
+
+```tsx
+<Button appearance="error">Error</Button>
+```
+
+### Error Subtle
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button appearance="errorSubtle" size="small">Small</Button>
+  <Button appearance="errorSubtle" size="medium">Medium</Button>
+  <Button appearance="errorSubtle" size="large">Large</Button>
+</div>
+
+```tsx
+<Button appearance="errorSubtle">Error Subtle</Button>
+```
+
+## Sizes
+
+<div className="flex items-end gap-3 p-4 border rounded-lg">
+  <Button size="small">Small</Button>
+  <Button size="medium">Medium</Button>
+  <Button size="large">Large</Button>
+</div>
+
+```tsx
+<Button size="small">Small (24px)</Button>
+<Button size="medium">Medium (32px)</Button>
+<Button size="large">Large (40px)</Button>
+```
+
+## Icon Button
+
+`icon` prop을 전달하면 아이콘 전용 버튼으로 렌더링됩니다. 아이콘 버튼은 `subtle`과 `ghost` appearance를 지원합니다.
+
+```tsx
+import { PlusIcon } from "@phosphor-icons/react";
+  <Button icon={<PlusIcon />} appearance="ghost" size="small" />
+<Button icon={<PlusIcon />} appearance="ghost" size="medium" />
+<Button icon={<PlusIcon />} appearance="ghost" size="large" />
+<Button icon={<PlusIcon />} appearance="subtle" size="small" />
+<Button icon={<PlusIcon />} appearance="subtle" size="medium" />
+```
+
+```tsx
+import { PlusIcon } from "@phosphor-icons/react";
+
+<Button icon={<PlusIcon />} appearance="ghost" />
+<Button icon={<PlusIcon />} appearance="subtle" />
+```
+
+## Loading
+
+`loading` prop을 전달하면 스피너가 표시되고 버튼이 비활성화됩니다.
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button loading>Default</Button>
+  <Button loading appearance="subtle">Subtle</Button>
+  <Button loading appearance="error">Error</Button>
+</div>
+
+```tsx
+<Button loading>저장 중...</Button>
+```
+
+## Disabled
+
+<div className="flex items-center gap-3 p-4 border rounded-lg">
+  <Button disabled>Default</Button>
+  <Button disabled appearance="subtle">Subtle</Button>
+  <Button disabled appearance="ghost">Ghost</Button>
+  <Button disabled appearance="error">Error</Button>
+</div>
+
+```tsx
+<Button disabled>비활성화</Button>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `appearance` | `"default" \| "subtle" \| "ghost" \| "error" \| "errorSubtle"` | `"default"` | 버튼 외형 |
+| `size` | `"small" \| "medium" \| "large"` | `"small"` | 버튼 크기 |
+| `icon` | `ReactNode` | - | 아이콘 버튼으로 렌더링 (children과 배타적) |
+| `loading` | `boolean` | `false` | 로딩 상태 표시 |
+| `disabled` | `boolean` | `false` | 비활성화 |

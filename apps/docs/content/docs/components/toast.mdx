@@ -1,0 +1,67 @@
+---
+title: Toast
+description: 사용자에게 피드백을 전달하는 일시적인 알림입니다.
+---
+
+## Installation
+
+```tsx title="components/ui/toast.tsx"
+// Copy from packages/ui/components/toast.tsx
+```
+
+## Usage
+
+```tsx
+import { ToastProvider, useToast } from "@/components/ui/toast";
+
+// Wrap your app
+function App() {
+  return (
+    <ToastProvider>
+      <MyComponent />
+    </ToastProvider>
+  );
+}
+
+// Use the hook
+function MyComponent() {
+  const { toast } = useToast();
+
+  return (
+    <button onClick={() => toast({ title: "저장되었습니다." })}>
+      Save
+    </button>
+  );
+}
+```
+
+## Appearances
+
+```tsx
+toast({ appearance: "default", title: "기본 알림" });
+toast({ appearance: "success", title: "성공!", description: "저장 완료" });
+toast({ appearance: "warning", title: "주의", description: "확인 필요" });
+toast({ appearance: "error", title: "오류", description: "실패했습니다" });
+```
+
+## With Action
+
+```tsx
+toast({
+  appearance: "warning",
+  title: "삭제됨",
+  action: { label: "Undo", onClick: () => handleUndo() },
+});
+```
+
+## Props
+
+### toast()
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `appearance` | `"default" \| "warning" \| "error" \| "success"` | `"default"` | 스타일 |
+| `title` | `string` | - | 제목 (필수) |
+| `description` | `string` | - | 설명 |
+| `action` | `{ label: string, onClick: () => void }` | - | 액션 버튼 |
+| `duration` | `number` | `5000` | 자동 닫힘 시간 (ms) |

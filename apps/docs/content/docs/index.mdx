@@ -1,0 +1,40 @@
+---
+title: Introduction
+description: Huxley UI - MUI Base UI + TailwindCSS component library
+---
+
+## What is Huxley UI?
+
+Huxley UI is a collection of copy-paste components built with:
+
+- **MUI Base UI** - Headless, accessible components
+- **TailwindCSS** - Utility-first styling
+
+## Usage
+
+1. Browse the components
+2. Copy the code you need
+3. Paste into your project
+4. Customize as needed
+
+## Requirements
+
+Your project needs:
+
+```bash
+bun add @base-ui/react tailwind-merge
+```
+
+## Utils
+
+Add the `cn` utility to your project:
+
+```ts title="utils/cn.ts"
+import { twMerge } from "tailwind-merge";
+
+type ClassValue = string | boolean | undefined | null;
+
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(inputs.filter(Boolean).join(" "));
+}
+```

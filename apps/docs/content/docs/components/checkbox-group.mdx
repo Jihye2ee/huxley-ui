@@ -1,0 +1,53 @@
+---
+title: Checkbox Group
+description: 여러 체크박스를 그룹으로 묶어 관리합니다.
+---
+
+import { CheckboxGroup } from "@huxley-ui/ui/components/checkbox-group";
+import { Checkbox } from "@huxley-ui/ui/components/checkbox";
+
+## Preview
+
+<div className="flex flex-col gap-4 p-4 border rounded-lg">
+  <CheckboxGroup title="Options">
+    <Checkbox label="Option 1" value="1" />
+    <Checkbox label="Option 2" value="2" />
+    <Checkbox label="Option 3" value="3" />
+  </CheckboxGroup>
+</div>
+
+## Installation
+
+```tsx title="components/ui/checkbox-group.tsx"
+// Copy from packages/ui/components/checkbox-group.tsx
+```
+
+## Multi Column
+
+```tsx
+<CheckboxGroup title="Fruits" columns={3}>
+  <Checkbox label="Apple" value="apple" />
+  <Checkbox label="Banana" value="banana" />
+  <Checkbox label="Cherry" value="cherry" />
+</CheckboxGroup>
+```
+
+## Disabled
+
+```tsx
+<CheckboxGroup title="Disabled" disabled>
+  <Checkbox label="A" value="a" />
+  <Checkbox label="B" value="b" />
+</CheckboxGroup>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `ReactNode` | - | 그룹 제목 |
+| `columns` | `number` | - | 그리드 열 수 |
+| `value` | `string[]` | - | 선택된 값 (제어) |
+| `defaultValue` | `string[]` | - | 초기 선택 값 |
+| `onValueChange` | `(value: string[]) => void` | - | 변경 콜백 |
+| `disabled` | `boolean` | `false` | 전체 비활성화 |

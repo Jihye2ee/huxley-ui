@@ -1,0 +1,9 @@
+@source "./components/*.tsx";
+@source "./utils/*.ts";
+@import "./tailwind/palette.css";
+@import "./tailwind/semantic-light.css";
+@import "./tailwind/semantic-dark.css";
+@import "./tailwind/dark.css";
+@import "./tailwind/shadow.css";
+@import "./tailwind/typography.css";
+

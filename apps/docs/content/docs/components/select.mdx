@@ -1,0 +1,74 @@
+---
+title: Select
+description: 드롭다운 목록에서 항목을 선택할 수 있는 컴포넌트입니다.
+---
+
+import {
+  SelectRoot, SelectTrigger, SelectContent,
+  SelectItem, SelectGroup, SelectGroupLabel, SelectSeparator,
+} from "@huxley-ui/ui/components/select";
+
+## Preview
+
+<div className="flex flex-col gap-4 p-4 border rounded-lg max-w-sm">
+  <SelectRoot>
+    <SelectTrigger>Placeholder</SelectTrigger>
+    <SelectContent>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+      <SelectItem value="cherry">Cherry</SelectItem>
+    </SelectContent>
+  </SelectRoot>
+</div>
+
+## Installation
+
+```tsx title="components/ui/select.tsx"
+// Copy from packages/ui/components/select.tsx
+```
+
+## Sizes
+
+```tsx
+<SelectTrigger size="md">Medium</SelectTrigger>
+<SelectTrigger size="sm">Small</SelectTrigger>
+```
+
+## States
+
+```tsx
+<SelectTrigger disabled>Disabled</SelectTrigger>
+<SelectTrigger error>Error</SelectTrigger>
+```
+
+## With Groups
+
+```tsx
+<SelectContent>
+  <SelectGroup>
+    <SelectGroupLabel>Fruits</SelectGroupLabel>
+    <SelectItem value="apple">Apple</SelectItem>
+  </SelectGroup>
+  <SelectSeparator />
+  <SelectGroup>
+    <SelectGroupLabel>Vegetables</SelectGroupLabel>
+    <SelectItem value="carrot">Carrot</SelectItem>
+  </SelectGroup>
+</SelectContent>
+```
+
+## Props
+
+### SelectTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `"md" \| "sm"` | `"md"` | 트리거 크기 |
+| `error` | `boolean` | `false` | 에러 상태 |
+
+### SelectItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | 항목 값 |
+| `disabled` | `boolean` | `false` | 비활성화 |

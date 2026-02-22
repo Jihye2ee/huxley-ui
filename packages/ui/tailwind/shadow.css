@@ -1,0 +1,8 @@
+@theme {
+  --shadow-raised:
+    0px 0px 1px 0px var(--shadow-color-elevation-strong),
+    0px 2px 4px 0px var(--shadow-color-elevation-default);
+  --shadow-overlay:
+    0px 0px 1px 0px var(--shadow-color-elevation-strong),
+    0px 8px 12px 0px var(--shadow-color-elevation-default);
+}

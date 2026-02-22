@@ -1,0 +1,82 @@
+---
+title: Accordion
+description: 접고 펼칠 수 있는 콘텐츠 영역입니다.
+---
+
+import { AccordionRoot, AccordionItem } from "@huxley-ui/ui/components/accordion";
+
+## Preview
+
+<div className="flex flex-col gap-4 p-4 border rounded-lg">
+  <AccordionRoot>
+    <AccordionItem title="Base UI란 무엇인가요?" value="1">
+      Base UI는 스타일이 없는 React 컴포넌트 라이브러리입니다.
+    </AccordionItem>
+    <AccordionItem title="어떻게 시작하나요?" value="2">
+      npm install @base-ui/react 명령어로 설치한 뒤 바로 사용할 수 있습니다.
+    </AccordionItem>
+  </AccordionRoot>
+</div>
+
+## Installation
+
+```tsx title="components/ui/accordion.tsx"
+// Copy from packages/ui/components/accordion.tsx
+```
+
+## Usage
+
+```tsx
+import { AccordionRoot, AccordionItem } from "@/components/ui/accordion";
+
+export function Example() {
+  return (
+    <AccordionRoot>
+      <AccordionItem title="Section 1" value="1">
+        Content for section 1
+      </AccordionItem>
+      <AccordionItem title="Section 2" value="2">
+        Content for section 2
+      </AccordionItem>
+    </AccordionRoot>
+  );
+}
+```
+
+## Default Expanded
+
+```tsx
+<AccordionRoot defaultValue={["1"]}>
+  <AccordionItem title="기본 펼쳐진 항목" value="1">
+    이 항목은 처음부터 펼쳐져 있습니다.
+  </AccordionItem>
+</AccordionRoot>
+```
+
+## Multiple
+
+```tsx
+<AccordionRoot openMultiple>
+  <AccordionItem title="첫 번째" value="1">내용 1</AccordionItem>
+  <AccordionItem title="두 번째" value="2">내용 2</AccordionItem>
+</AccordionRoot>
+```
+
+## Props
+
+### AccordionRoot
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string[]` | `[]` | 초기 펼쳐진 항목 |
+| `value` | `string[]` | - | 제어 모드용 열린 항목 |
+| `onValueChange` | `(value: string[]) => void` | - | 값 변경 콜백 |
+| `openMultiple` | `boolean` | `false` | 여러 항목 동시 펼침 허용 |
+
+### AccordionItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `ReactNode` | - | 트리거 텍스트 |
+| `value` | `string` | - | 항목 식별자 |
+| `children` | `ReactNode` | - | 패널 콘텐츠 |

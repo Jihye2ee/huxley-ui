@@ -1,0 +1,226 @@
+@theme {
+  /* Text */
+  --text-color-default: var(--color-stone-900);
+  --text-color-subtle: var(--color-stone-500);
+  --text-color-subtlest: var(--color-stone-400);
+  --text-color-placeholder: oklch(0.0% 0.000 0.0 / 25%);
+  --text-color-inverse: var(--color-white);
+  --text-color-inverse-fixed: var(--color-white);
+  --text-color-selected: var(--color-stone-900);
+  --text-color-disabled: oklch(0.0% 0.000 0.0 / 30%);
+  --text-color-brand: var(--color-stone-900);
+  --text-color-success: var(--color-green-600);
+  --text-color-warning: var(--color-amber-600);
+  --text-color-error: var(--color-red-600);
+  --text-color-danger: var(--color-red-600);
+  --text-color-info: var(--color-blue-600);
+  --text-color-accent-red: var(--color-red-500);
+  --text-color-accent-orange: var(--color-orange-500);
+  --text-color-accent-amber: var(--color-amber-500);
+  --text-color-accent-yellow: var(--color-yellow-500);
+  --text-color-accent-lime: var(--color-lime-500);
+  --text-color-accent-green: var(--color-green-500);
+  --text-color-accent-emerald: var(--color-emerald-500);
+  --text-color-accent-teal: var(--color-teal-500);
+  --text-color-accent-cyan: var(--color-cyan-500);
+  --text-color-accent-sky: var(--color-sky-500);
+  --text-color-accent-blue: var(--color-blue-500);
+  --text-color-accent-indigo: var(--color-indigo-500);
+  --text-color-accent-violet: var(--color-violet-500);
+  --text-color-accent-purple: var(--color-purple-500);
+  --text-color-accent-fuchsia: var(--color-fuchsia-500);
+  --text-color-accent-pink: var(--color-pink-500);
+  --text-color-accent-rose: var(--color-rose-500);
+
+  /* Text/Link */
+  --text-color-link-default: var(--color-blue-600);
+  --text-color-link-hovered: var(--color-blue-700);
+  --text-color-link-visited: var(--color-purple-600);
+
+  /* Icon */
+  --fill-default: var(--color-stone-900);
+  --fill-subtle: var(--color-stone-500);
+  --fill-subtlest: var(--color-stone-400);
+  --fill-placeholder: oklch(0.0% 0.000 0.0 / 25%);
+  --fill-inverse: var(--color-white);
+  --fill-inverse-fixed: var(--color-white);
+  --fill-selected: var(--color-stone-900);
+  --fill-disabled: oklch(0.0% 0.000 0.0 / 25%);
+  --fill-brand: var(--color-stone-900);
+  --fill-success: var(--color-green-600);
+  --fill-warning: var(--color-amber-600);
+  --fill-error: var(--color-red-600);
+  --fill-danger: var(--color-red-600);
+  --fill-info: var(--color-blue-600);
+  --fill-accent-red: var(--color-red-500);
+  --fill-accent-orange: var(--color-orange-500);
+  --fill-accent-amber: var(--color-amber-500);
+  --fill-accent-yellow: var(--color-yellow-500);
+  --fill-accent-lime: var(--color-lime-500);
+  --fill-accent-green: var(--color-green-500);
+  --fill-accent-emerald: var(--color-emerald-500);
+  --fill-accent-teal: var(--color-teal-500);
+  --fill-accent-cyan: var(--color-cyan-500);
+  --fill-accent-sky: var(--color-sky-500);
+  --fill-accent-blue: var(--color-blue-500);
+  --fill-accent-indigo: var(--color-indigo-500);
+  --fill-accent-violet: var(--color-violet-500);
+  --fill-accent-purple: var(--color-purple-500);
+  --fill-accent-fuchsia: var(--color-fuchsia-500);
+  --fill-accent-pink: var(--color-pink-500);
+  --fill-accent-rose: var(--color-rose-500);
+
+  /* Border */
+  --border-color-default: var(--color-stone-200);
+  --border-color-strong: var(--color-stone-300);
+  --border-color-subtle: var(--color-stone-100);
+  --border-color-focused: var(--color-blue-500);
+  --border-color-input: oklch(0.0% 0.000 0.0 / 12%);
+  --border-color-bold: var(--color-stone-800);
+  --border-color-selected: var(--color-stone-900);
+  --border-color-inverse: var(--color-white);
+  --border-color-disabled: oklch(0.0% 0.000 0.0 / 15%);
+  --border-color-success: var(--color-green-500);
+  --border-color-warning: var(--color-amber-500);
+  --border-color-error: var(--color-red-500);
+  --border-color-info: var(--color-blue-500);
+  --border-color-accent-red: oklch(63.7% 0.208 25.3 / 10%);
+  --border-color-accent-orange: oklch(70.5% 0.187 47.6 / 10%);
+  --border-color-accent-amber: oklch(76.9% 0.165 70.1 / 10%);
+  --border-color-accent-yellow: oklch(79.5% 0.162 86.0 / 10%);
+  --border-color-accent-lime: oklch(76.8% 0.204 130.8 / 10%);
+  --border-color-accent-green: oklch(72.3% 0.192 149.6 / 10%);
+  --border-color-accent-emerald: oklch(69.6% 0.149 162.5 / 10%);
+  --border-color-accent-teal: oklch(70.4% 0.123 182.5 / 10%);
+  --border-color-accent-cyan: oklch(71.5% 0.126 215.2 / 10%);
+  --border-color-accent-sky: oklch(68.5% 0.148 237.3 / 10%);
+  --border-color-accent-blue: oklch(62.3% 0.188 259.8 / 10%);
+  --border-color-accent-indigo: oklch(58.5% 0.204 277.1 / 10%);
+  --border-color-accent-violet: oklch(60.6% 0.219 292.7 / 10%);
+  --border-color-accent-purple: oklch(62.7% 0.233 303.9 / 10%);
+  --border-color-accent-fuchsia: oklch(66.7% 0.259 322.1 / 10%);
+  --border-color-accent-pink: oklch(65.6% 0.212 354.3 / 10%);
+  --border-color-accent-rose: oklch(64.5% 0.215 16.4 / 10%);
+
+  /* Background */
+  --background-color-default: var(--color-white);
+  --background-color-hovered: var(--color-stone-100);
+  --background-color-pressed: var(--color-stone-100);
+  --background-color-disabled: oklch(0.0% 0.000 0.0 / 10%);
+
+  /* Background/Brand */
+  --background-color-brand-default: var(--color-stone-900);
+  --background-color-brand-hovered: var(--color-stone-700);
+  --background-color-brand-pressed: var(--color-stone-700);
+
+  /* Background/Neutral */
+  --background-color-neutral-default: oklch(0.0% 0.000 0.0 / 5%);
+  --background-color-neutral-hovered: oklch(0.0% 0.000 0.0 / 8%);
+  --background-color-neutral-pressed: oklch(0.0% 0.000 0.0 / 8%);
+
+  /* Background/Neutral/Subtle */
+  --background-color-neutral-subtle-default: oklch(0.0% 0.000 0.0 / 3%);
+  --background-color-neutral-subtle-hovered: oklch(0.0% 0.000 0.0 / 8%);
+  --background-color-neutral-subtle-pressed: oklch(0.0% 0.000 0.0 / 8%);
+
+  /* Background/Neutral/Bold */
+  --background-color-neutral-bold-default: var(--color-stone-900);
+  --background-color-neutral-bold-hovered: var(--color-stone-700);
+  --background-color-neutral-bold-pressed: var(--color-stone-700);
+
+  /* Background/Error */
+  --background-color-error-default: var(--color-red-100);
+  --background-color-error-hovered: var(--color-red-200);
+  --background-color-error-pressed: var(--color-red-200);
+
+  /* Background/Error/Bold */
+  --background-color-error-bold-default: var(--color-red-500);
+  --background-color-error-bold-hovered: var(--color-red-600);
+  --background-color-error-bold-pressed: var(--color-red-600);
+
+  /* Background/Success */
+  --background-color-success-default: var(--color-green-100);
+  --background-color-success-hovered: var(--color-green-200);
+  --background-color-success-pressed: var(--color-green-200);
+
+  /* Background/Success/Bold */
+  --background-color-success-bold-default: var(--color-green-500);
+  --background-color-success-bold-hovered: var(--color-green-600);
+  --background-color-success-bold-pressed: var(--color-green-600);
+
+  /* Background/Warning */
+  --background-color-warning-default: var(--color-amber-100);
+  --background-color-warning-hovered: var(--color-amber-200);
+  --background-color-warning-pressed: var(--color-amber-200);
+
+  /* Background/Warning/Bold */
+  --background-color-warning-bold-default: var(--color-amber-500);
+  --background-color-warning-bold-hovered: var(--color-amber-600);
+  --background-color-warning-bold-pressed: var(--color-amber-600);
+
+  /* Background/Info */
+  --background-color-info-default: var(--color-blue-100);
+  --background-color-info-hovered: var(--color-blue-200);
+  --background-color-info-pressed: var(--color-blue-200);
+
+  /* Background/Info/Bold */
+  --background-color-info-bold-default: var(--color-blue-500);
+  --background-color-info-bold-hovered: var(--color-blue-600);
+  --background-color-info-bold-pressed: var(--color-blue-600);
+
+  /* Background/Input */
+  --background-color-input-default: var(--color-white);
+  --background-color-input-hovered: var(--color-stone-100);
+  --background-color-input-pressed: var(--color-stone-100);
+  --background-color-input-disabled: oklch(0.0% 0.000 0.0 / 4%);
+  --background-color-fill-disabled: oklch(0.0% 0.000 0.0 / 4%);
+
+  /* Background/Selected */
+  --background-color-selected-default: oklch(0.0% 0.000 0.0 / 8%);
+  --background-color-selected-subtle: oklch(0.0% 0.000 0.0 / 4%);
+
+  /* Background/Skeleton */
+  --background-color-skeleton-default: oklch(0.0% 0.000 0.0 / 8%);
+
+  /* Background/Interaction */
+  --background-color-interaction-hovered: oklch(0.0% 0.000 0.0 / 5%);
+  --background-color-interaction-pressed: oklch(0.0% 0.000 0.0 / 10%);
+  --background-color-interaction-selected: oklch(0.0% 0.000 0.0 / 5%);
+
+  /* Background — Accent */
+  --background-color-accent-red: oklch(63.7% 0.208 25.3 / 10%);
+  --background-color-accent-orange: oklch(70.5% 0.187 47.6 / 10%);
+  --background-color-accent-amber: oklch(76.9% 0.165 70.1 / 10%);
+  --background-color-accent-yellow: oklch(79.5% 0.162 86.0 / 10%);
+  --background-color-accent-lime: oklch(76.8% 0.204 130.8 / 10%);
+  --background-color-accent-green: oklch(72.3% 0.192 149.6 / 10%);
+  --background-color-accent-emerald: oklch(69.6% 0.149 162.5 / 10%);
+  --background-color-accent-teal: oklch(70.4% 0.123 182.5 / 10%);
+  --background-color-accent-cyan: oklch(71.5% 0.126 215.2 / 10%);
+  --background-color-accent-sky: oklch(68.5% 0.148 237.3 / 10%);
+  --background-color-accent-blue: oklch(62.3% 0.188 259.8 / 10%);
+  --background-color-accent-indigo: oklch(58.5% 0.204 277.1 / 10%);
+  --background-color-accent-violet: oklch(60.6% 0.219 292.7 / 10%);
+  --background-color-accent-purple: oklch(62.7% 0.233 303.9 / 10%);
+  --background-color-accent-fuchsia: oklch(66.7% 0.259 322.1 / 10%);
+  --background-color-accent-pink: oklch(65.6% 0.212 354.3 / 10%);
+  --background-color-accent-rose: oklch(64.5% 0.215 16.4 / 10%);
+
+
+  /* Elevation/Surface */
+  --background-color-elevation-surface-default: var(--color-white);
+  --background-color-elevation-surface-raised-default: var(--color-white);
+  --background-color-elevation-surface-raised-hovered: var(--color-stone-50);
+  --background-color-elevation-surface-raised-pressed: var(--color-stone-50);
+  --background-color-elevation-surface-sunken-default: var(--color-stone-100);
+  --background-color-elevation-surface-overlay-default: var(--color-white);
+  --background-color-elevation-surface-overlay-hovered: var(--color-stone-50);
+  --background-color-elevation-surface-overlay-pressed: var(--color-stone-50);
+
+  /* Elevation/Shadow */
+  --shadow-color-elevation-default: oklch(26.8% 0.006 34.3 / 12%);
+  --shadow-color-elevation-strong: oklch(21.6% 0.006 56.0 / 25%);
+
+  /* Blanket */
+  --background-color-blanket-default: oklch(0.0% 0.000 0.0 / 50%);
+}

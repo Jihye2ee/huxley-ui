@@ -1,0 +1,54 @@
+---
+title: Avatar
+description: 사용자를 나타내는 아바타 컴포넌트입니다. 이미지 또는 이니셜을 표시합니다.
+---
+
+import { Avatar } from "@huxley-ui/ui/components/avatar";
+
+## Preview
+
+<div className="flex gap-4 p-4 border rounded-lg items-center">
+  <Avatar size="large" color="neutral">김민</Avatar>
+  <Avatar size="large" color="orange">PS</Avatar>
+  <Avatar size="large" color="green">이수</Avatar>
+  <Avatar size="large" color="blue">박진</Avatar>
+  <Avatar size="large" src="https://images.unsplash.com/photo-1632765854612-9b02b6ec2b15?w=160&h=160&fit=crop&crop=faces" alt="Profile" />
+</div>
+
+## Installation
+
+```tsx title="components/ui/avatar.tsx"
+// Copy from packages/ui/components/avatar.tsx
+```
+
+## Sizes
+
+```tsx
+<Avatar size="large">김</Avatar>  {/* 40px */}
+<Avatar size="small">김</Avatar>  {/* 24px */}
+```
+
+## Colors
+
+```tsx
+<Avatar color="neutral">가</Avatar>
+<Avatar color="orange">나</Avatar>
+<Avatar color="green">다</Avatar>
+<Avatar color="blue">라</Avatar>
+```
+
+## Image
+
+```tsx
+<Avatar src="/path/to/image.jpg" alt="User" />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `"large" \| "small"` | `"large"` | 아바타 크기 (40px / 24px) |
+| `color` | `"neutral" \| "orange" \| "green" \| "blue"` | `"neutral"` | 배경 색상 |
+| `src` | `string` | - | 이미지 URL |
+| `alt` | `string` | - | 이미지 대체 텍스트 |
+| `children` | `string` | - | 이니셜 텍스트 (첫 글자만 표시) |
