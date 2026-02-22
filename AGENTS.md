@@ -184,7 +184,9 @@ Each component doc in `apps/docs/content/docs/components/{name}.mdx`:
 2. Follow the component pattern above (Base UI primitive + cva + cn)
 3. Create `apps/docs/content/docs/components/{name}.mdx` with full documentation
 4. Add `"{name}"` to `apps/docs/content/docs/components/meta.json` pages array
-5. Run `bun run check` to verify linting passes
+5. Add Zod prop schema + description in `packages/json-render/catalog.ts`
+6. Add React render mapping in `packages/json-render/registry.tsx`
+7. Run `bun run check` to verify linting passes
 
 ## Gotchas
 
