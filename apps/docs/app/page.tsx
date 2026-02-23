@@ -11,7 +11,7 @@ export default function HomePage() {
             dark:text-zinc-400
           "
         >
-          MUI Base UI + TailwindCSS component library
+          Base UI + Tailwind CSS component library
         </p>
         <p
           className="
@@ -21,7 +21,7 @@ export default function HomePage() {
         >
           Copy and paste components into your project
         </p>
-        <div className="mt-8 flex items-center gap-3">
+        <div className="mt-8 flex items-center justify-center gap-3">
           <Link
             href="/docs"
             className="
