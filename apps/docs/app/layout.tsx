@@ -5,7 +5,7 @@ import type { ReactNode } from "react"
 
 export const metadata: Metadata = {
   title: "Huxley UI",
-  description: "MUI Base UI + TailwindCSS component library",
+  description: "디자인 시스템 기반 컴포넌트 + AI Playground",
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
