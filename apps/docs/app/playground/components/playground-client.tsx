@@ -1,6 +1,6 @@
 "use client"
 
-import { registry } from "@huxley-ui/json-render"
+import { registry } from "@jamie-ui/json-render"
 import { useUIStream } from "@json-render/react"
 import { MoonIcon, SunIcon } from "@phosphor-icons/react"
 import Link from "next/link"

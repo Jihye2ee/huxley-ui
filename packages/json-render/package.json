@@ -1,5 +1,5 @@
 {
-  "name": "@huxley-ui/json-render",
+  "name": "@jamie-ui/json-render",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
     "./catalog": "./catalog.ts"
   },
   "dependencies": {
-    "@huxley-ui/ui": "workspace:*",
+    "@jamie-ui/ui": "workspace:*",
     "@json-render/core": "^0.8.0",
     "@json-render/react": "^0.8.0",
     "zod": "^4.0.0"

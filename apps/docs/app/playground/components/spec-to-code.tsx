@@ -137,7 +137,7 @@ export function specToCode(spec: Spec): string {
 
   const importLine =
     imports.length > 0
-      ? `import { ${imports.join(", ")} } from "@huxley-ui/ui"\n\n`
+      ? `import { ${imports.join(", ")} } from "@jamie-ui/ui"\n\n`
       : ""
 
   return `${importLine}export default function Page() {

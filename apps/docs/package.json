@@ -1,5 +1,5 @@
 {
-  "name": "@huxley-ui/docs",
+  "name": "@jamie-ui/docs",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -14,8 +14,8 @@
     "@ai-sdk/gateway": "3.0.53",
     "@ai-sdk/openai": "3.0.30",
     "@base-ui/react": "^1.1.0",
-    "@huxley-ui/json-render": "workspace:*",
-    "@huxley-ui/ui": "workspace:*",
+    "@jamie-ui/json-render": "workspace:*",
+    "@jamie-ui/ui": "workspace:*",
     "@json-render/codegen": "^0.8.0",
     "@json-render/core": "^0.8.0",
     "@json-render/react": "^0.8.0",

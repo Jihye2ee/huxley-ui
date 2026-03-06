@@ -1,5 +1,5 @@
 {
-  "name": "huxley-ui",
+  "name": "jamie-ui",
   "devDependencies": {
     "@biomejs/biome": "2.3.14",
     "@typescript-eslint/parser": "8.54.0",
@@ -10,7 +10,7 @@
   },
   "private": true,
   "scripts": {
-    "dev": "bun run --filter=@huxley-ui/docs dev",
+    "dev": "bun run --filter=@jamie-ui/docs dev",
     "build": "bun run --filter=* build",
     "lint": "biome lint packages apps/docs/app apps/docs/lib",
     "lint:tw": "eslint --fix packages/ui apps/docs",

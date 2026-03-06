@@ -1,5 +1,5 @@
 import { gateway } from "@ai-sdk/gateway"
-import { catalog } from "@huxley-ui/json-render/catalog"
+import { catalog } from "@jamie-ui/json-render/catalog"
 import { buildUserPrompt } from "@json-render/core"
 import { streamText } from "ai"
 
