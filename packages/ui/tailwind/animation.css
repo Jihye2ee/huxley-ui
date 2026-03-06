@@ -1,0 +1,17 @@
+@theme {
+  --animate-dot-bounce: dot-bounce 1s ease-in-out infinite;
+}
+
+@keyframes dot-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-70%);
+  }
+  40% {
+    transform: translateY(70%);
+  }
+}

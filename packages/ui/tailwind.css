@@ -1,9 +1,13 @@
 @source "./components/*.tsx";
 @source "./utils/*.ts";
+
+/* ─── Design Tokens ─── */
 @import "./tailwind/palette.css";
 @import "./tailwind/semantic-light.css";
-@import "./tailwind/semantic-dark.css";
-@import "./tailwind/dark.css";
 @import "./tailwind/shadow.css";
 @import "./tailwind/typography.css";
+@import "./tailwind/animation.css";
 
+/* ─── Dark Mode ─── */
+@import "./tailwind/dark.css";
+@import "./tailwind/semantic-dark.css";
