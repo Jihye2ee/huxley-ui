@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { Menu as BaseMenu } from "@base-ui/react/menu"
-import type { ComponentProps, ReactNode } from "react"
+import { Menu as BaseMenu } from '@base-ui/react/menu'
+import type { ComponentProps, ReactNode } from 'react'
 
-import { cn } from "../utils/cn"
+import { cn } from '../utils/cn'
 
-export type MenuRootProps = ComponentProps<typeof BaseMenu.Root>
+type MenuProps = ComponentProps<typeof BaseMenu.Root>
 
-export function MenuRoot(props: MenuRootProps) {
-  return <BaseMenu.Root {...props} />
+export function MenuRoot({ children, ...props }: MenuProps) {
+  return <BaseMenu.Root {...props}>{children}</BaseMenu.Root>
 }
 
 export type MenuTriggerProps = ComponentProps<typeof BaseMenu.Trigger>
@@ -17,34 +17,29 @@ export function MenuTrigger(props: MenuTriggerProps) {
   return <BaseMenu.Trigger {...props} />
 }
 
-export type MenuContentProps = Omit<
-  ComponentProps<typeof BaseMenu.Popup>,
-  "className"
-> & {
-  side?: "top" | "bottom" | "left" | "right"
-  sideOffset?: number
-  align?: "start" | "center" | "end"
+type MenuContentProps = {
+  children: ReactNode
   className?: string
+  side?: 'top' | 'bottom' | 'left' | 'right'
+  align?: 'start' | 'center' | 'end'
+  sideOffset?: number
 }
 
 export function MenuContent({
-  side = "bottom",
-  sideOffset = 4,
-  align = "start",
-  className,
   children,
-  ...props
+  className,
+  side = 'bottom',
+  align = 'start',
+  sideOffset = 4,
 }: MenuContentProps) {
   return (
     <BaseMenu.Portal>
-      <BaseMenu.Positioner side={side} sideOffset={sideOffset} align={align}>
+      <BaseMenu.Positioner side={side} align={align} sideOffset={sideOffset}>
         <BaseMenu.Popup
           className={cn(
-            "z-50 min-w-[180px] rounded-lg border border-default",
-            "bg-elevation-surface-overlay-default p-1 shadow-overlay",
+            'min-w-40 origin-[var(--transform-origin)] rounded-lg bg-elevation-surface-overlay-default p-1.5 shadow-[0_6px_12px_0_var(--shadow-color-elevation-default),0_0px_1px_0_var(--shadow-color-elevation-strong)] transition-[transform,scale,opacity] outline-none data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
             className,
           )}
-          {...props}
         >
           {children}
         </BaseMenu.Popup>
@@ -53,69 +48,58 @@ export function MenuContent({
   )
 }
 
-export type MenuItemProps = Omit<
-  ComponentProps<typeof BaseMenu.Item>,
-  "className"
-> & {
-  danger?: boolean
+type MenuItemProps = {
+  children: ReactNode
   className?: string
+  onClick?: () => void
+  disabled?: boolean
+  danger?: boolean
 }
 
-export function MenuItem({ danger, className, ...props }: MenuItemProps) {
+export function MenuItem({ children, className, onClick, disabled, danger }: MenuItemProps) {
   return (
     <BaseMenu.Item
+      onClick={onClick}
+      disabled={disabled}
       className={cn(
-        "flex w-full cursor-pointer items-center rounded-md px-3 py-2",
-        "body-14-medium transition-colors",
-        "focus-visible:outline-hidden",
-        danger
-          ? "text-error data-highlighted:bg-error-default"
-          : "text-default data-highlighted:bg-interaction-hovered",
-        props.disabled && "pointer-events-none text-disabled",
+        'flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 body-14-regular outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:text-disabled data-[highlighted]:bg-interaction-hovered',
+        danger ? 'text-error data-[highlighted]:bg-error-default' : 'text-default',
         className,
       )}
-      {...props}
-    />
+    >
+      {children}
+    </BaseMenu.Item>
   )
 }
 
-export type MenuGroupProps = {
+type MenuSeparatorProps = {
+  className?: string
+}
+
+export function MenuSeparator({ className }: MenuSeparatorProps) {
+  return <BaseMenu.Separator className={cn('my-1 border-t border-default', className)} />
+}
+
+type MenuGroupProps = {
   children: ReactNode
   className?: string
 }
 
 export function MenuGroup({ children, className }: MenuGroupProps) {
-  return <BaseMenu.Group className={className}>{children}</BaseMenu.Group>
+  return <BaseMenu.Group className={cn('flex flex-col gap-1', className)}>{children}</BaseMenu.Group>
 }
 
-export type MenuGroupLabelProps = Omit<
-  ComponentProps<typeof BaseMenu.GroupLabel>,
-  "className"
-> & {
+type MenuGroupLabelProps = {
+  children: ReactNode
   className?: string
 }
 
-export function MenuGroupLabel({ className, ...props }: MenuGroupLabelProps) {
+export function MenuGroupLabel({ children, className }: MenuGroupLabelProps) {
   return (
-    <BaseMenu.GroupLabel
-      className={cn("body-12-medium px-3 py-1.5 text-subtle", className)}
-      {...props}
-    />
+    <BaseMenu.GroupLabel className={cn('px-2 py-1.5 body-12-medium text-subtlest', className)}>
+      {children}
+    </BaseMenu.GroupLabel>
   )
 }
 
-export type MenuSeparatorProps = Omit<
-  ComponentProps<typeof BaseMenu.Separator>,
-  "className"
-> & {
-  className?: string
-}
-
-export function MenuSeparator({ className, ...props }: MenuSeparatorProps) {
-  return (
-    <BaseMenu.Separator
-      className={cn("my-1 border-t border-default", className)}
-      {...props}
-    />
-  )
-}
+export { MenuRoot as Menu }

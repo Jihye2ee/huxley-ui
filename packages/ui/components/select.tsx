@@ -1,73 +1,55 @@
-"use client"
+'use client'
 
-import { Select as BaseSelect } from "@base-ui/react/select"
-import { CaretDownIcon, CheckIcon } from "@phosphor-icons/react"
-import { cva, type VariantProps } from "class-variance-authority"
-import type { ComponentProps } from "react"
+import { Select as BaseSelect } from '@base-ui/react/select'
+import { CaretDownIcon, CheckIcon } from '@phosphor-icons/react'
+import type { ComponentProps, ReactNode } from 'react'
 
-import { cn } from "../utils/cn"
+import { cn } from '../utils/cn'
 
-const triggerVariants = cva(
-  cn(
-    "inline-flex w-full cursor-pointer items-center justify-between",
-    "border border-default bg-default text-default",
-    "transition-colors",
-    "hover:border-hovered",
-    "focus-visible:border-brand-default focus-visible:ring-1 focus-visible:ring-brand-default",
-    "focus-visible:outline-hidden",
-    "data-disabled:pointer-events-none data-disabled:bg-fill-disabled data-disabled:text-disabled",
-    "data-popup-open:border-brand-default data-popup-open:ring-1 data-popup-open:ring-brand-default",
-  ),
-  {
-    variants: {
-      size: {
-        md: "h-[42px] rounded-lg px-3 body-14-medium",
-        sm: "h-8 rounded-md px-2.5 body-12-medium",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-    },
-  },
-)
-
-type SelectSize = VariantProps<typeof triggerVariants>["size"]
-
-export type SelectRootProps = ComponentProps<typeof BaseSelect.Root>
-
-export function SelectRoot(props: SelectRootProps) {
-  return <BaseSelect.Root {...props} />
+type SelectProps = Omit<ComponentProps<typeof BaseSelect.Root>, 'onValueChange'> & {
+  children: ReactNode
+  onValueChange?: (value: string) => void
 }
 
-export type SelectTriggerProps = Omit<
-  ComponentProps<typeof BaseSelect.Trigger>,
-  "className"
-> & {
-  size?: SelectSize
+export function SelectRoot({ children, onValueChange, ...props }: SelectProps) {
+  return (
+    <BaseSelect.Root {...props} onValueChange={onValueChange ? (value) => onValueChange(String(value)) : undefined}>
+      {children}
+    </BaseSelect.Root>
+  )
+}
+
+type SelectTriggerProps = {
+  placeholder?: string
+  size?: 'md' | 'sm'
   error?: boolean
+  disabled?: boolean
   className?: string
 }
 
+const triggerSizeClasses = {
+  md: 'h-10 rounded-lg px-3 body-14-regular',
+  sm: 'h-8 rounded-md px-2.5 body-14-regular',
+} as const
+
 export function SelectTrigger({
-  size = "md",
-  error,
+  placeholder = 'Placeholder',
+  size = 'md',
+  error = false,
+  disabled,
   className,
-  children,
-  ...props
 }: SelectTriggerProps) {
   return (
     <BaseSelect.Trigger
+      disabled={disabled}
       className={cn(
-        triggerVariants({ size }),
-        error && "border-danger focus-visible:ring-danger",
+        'inline-flex w-full items-center justify-between gap-1 border bg-input-default text-default transition-colors outline-none hover:bg-input-hovered focus:border-focused focus:ring-1 focus:ring-[var(--border-color-focused)] data-[disabled]:cursor-not-allowed data-[disabled]:border-input data-[disabled]:bg-input-disabled data-[disabled]:text-disabled data-[disabled]:hover:bg-input-disabled data-[popup-open]:border-focused data-[popup-open]:ring-1 data-[popup-open]:ring-[var(--border-color-focused)]',
+        error ? 'border-error ring-1 ring-[var(--border-color-error)]' : 'border-input',
+        triggerSizeClasses[size],
         className,
       )}
-      {...props}
     >
-      <BaseSelect.Value
-        className="truncate text-left"
-        placeholder={typeof children === "string" ? children : undefined}
-      />
+      <BaseSelect.Value placeholder={placeholder} className="truncate data-[placeholder]:text-placeholder" />
       <BaseSelect.Icon className="shrink-0 text-subtle">
         <CaretDownIcon size={16} />
       </BaseSelect.Icon>
@@ -75,28 +57,22 @@ export function SelectTrigger({
   )
 }
 
-export type SelectContentProps = Omit<
-  ComponentProps<typeof BaseSelect.Popup>,
-  "className"
-> & {
+type SelectContentProps = {
+  children: ReactNode
   className?: string
+  side?: 'top' | 'bottom' | 'left' | 'right'
+  sideOffset?: number
 }
 
-export function SelectContent({
-  className,
-  children,
-  ...props
-}: SelectContentProps) {
+export function SelectContent({ children, className, side = 'bottom', sideOffset = 4 }: SelectContentProps) {
   return (
     <BaseSelect.Portal>
-      <BaseSelect.Positioner>
+      <BaseSelect.Positioner side={side} sideOffset={sideOffset} alignItemWithTrigger={false} align="start">
         <BaseSelect.Popup
           className={cn(
-            "z-50 rounded-lg border border-default",
-            "bg-elevation-surface-overlay-default p-1 shadow-overlay",
+            'min-w-[var(--anchor-width)] origin-[var(--transform-origin)] rounded-lg bg-elevation-surface-overlay-default p-1.5 shadow-[0_6px_12px_0_var(--shadow-color-elevation-default),0_0px_1px_0_var(--shadow-color-elevation-strong)] transition-[transform,scale,opacity] outline-none data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
             className,
           )}
-          {...props}
         >
           {children}
         </BaseSelect.Popup>
@@ -105,74 +81,57 @@ export function SelectContent({
   )
 }
 
-export type SelectItemProps = Omit<
-  ComponentProps<typeof BaseSelect.Item>,
-  "className"
-> & {
+type SelectItemProps = {
+  children: ReactNode
+  value: string
+  disabled?: boolean
   className?: string
 }
 
-export function SelectItem({ className, children, ...props }: SelectItemProps) {
+export function SelectItem({ children, value, disabled, className }: SelectItemProps) {
   return (
     <BaseSelect.Item
+      value={value}
+      disabled={disabled}
       className={cn(
-        "flex w-full cursor-pointer items-center justify-between",
-        "rounded-md px-3 py-2 body-14-medium text-default",
-        "transition-colors",
-        "focus-visible:outline-hidden",
-        "data-highlighted:bg-interaction-hovered",
-        "data-disabled:pointer-events-none data-disabled:text-disabled",
+        'flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 body-14-regular text-default outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:text-disabled data-[highlighted]:bg-interaction-hovered data-[selected]:body-14-medium',
         className,
       )}
-      {...props}
     >
+      <span className="inline-flex size-4 shrink-0 items-center justify-center">
+        <BaseSelect.ItemIndicator>
+          <CheckIcon size={14} weight="bold" />
+        </BaseSelect.ItemIndicator>
+      </span>
       <BaseSelect.ItemText>{children}</BaseSelect.ItemText>
-      <BaseSelect.ItemIndicator className="text-brand">
-        <CheckIcon size={16} />
-      </BaseSelect.ItemIndicator>
     </BaseSelect.Item>
   )
 }
 
-export type SelectGroupProps = ComponentProps<typeof BaseSelect.Group>
-
-export function SelectGroup(props: SelectGroupProps) {
-  return <BaseSelect.Group {...props} />
-}
-
-export type SelectGroupLabelProps = Omit<
-  ComponentProps<typeof BaseSelect.GroupLabel>,
-  "className"
-> & {
+type SelectGroupProps = {
+  children: ReactNode
   className?: string
 }
 
-export function SelectGroupLabel({
-  className,
-  ...props
-}: SelectGroupLabelProps) {
-  return (
-    <BaseSelect.GroupLabel
-      className={cn("body-12-medium px-3 py-1.5 text-subtle", className)}
-      {...props}
-    />
-  )
+export function SelectGroup({ children, className }: SelectGroupProps) {
+  return <BaseSelect.Group className={cn('flex flex-col', className)}>{children}</BaseSelect.Group>
 }
 
-export type SelectSeparatorProps = Omit<
-  ComponentProps<typeof BaseSelect.Separator>,
-  "className"
-> & {
+type SelectGroupLabelProps = {
+  children: ReactNode
   className?: string
 }
 
-export function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
+export function SelectGroupLabel({ children, className }: SelectGroupLabelProps) {
   return (
-    <BaseSelect.Separator
-      className={cn("my-1 border-t border-default", className)}
-      {...props}
-    />
+    <BaseSelect.GroupLabel className={cn('px-2 py-1.5 body-12-medium text-subtlest', className)}>
+      {children}
+    </BaseSelect.GroupLabel>
   )
 }
 
-export { triggerVariants }
+export function SelectSeparator({ className }: { className?: string }) {
+  return <BaseSelect.Separator className={cn('my-1 border-t border-default', className)} />
+}
+
+export { SelectRoot as Select }

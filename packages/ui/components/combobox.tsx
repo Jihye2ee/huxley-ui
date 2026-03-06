@@ -1,197 +1,224 @@
-"use client"
+'use client'
 
-import { Combobox as BaseCombobox } from "@base-ui/react/combobox"
-import { CaretDownIcon, CheckIcon, XIcon } from "@phosphor-icons/react"
-import { cva, type VariantProps } from "class-variance-authority"
-import type { ComponentProps } from "react"
+import type { ComboboxRoot } from '@base-ui/react/combobox'
+import { Combobox as BaseCombobox } from '@base-ui/react/combobox'
+import { CaretDownIcon, CheckIcon, XIcon } from '@phosphor-icons/react'
+import { Fragment, useRef } from 'react'
 
-import { cn } from "../utils/cn"
+import { cn } from '../utils/cn'
 
-const comboboxTriggerVariants = cva(
-  cn(
-    "inline-flex w-full items-center",
-    "border border-default bg-default",
-    "transition-colors",
-    "hover:border-hovered",
-    "focus-within:border-brand-default focus-within:ring-1 focus-within:ring-brand-default",
-    "data-disabled:pointer-events-none data-disabled:bg-fill-disabled data-disabled:text-disabled",
-  ),
-  {
-    variants: {
-      inputSize: {
-        md: "min-h-[42px] rounded-lg px-3 body-14-medium",
-        sm: "min-h-8 rounded-md px-2.5 body-12-medium",
-      },
-    },
-    defaultVariants: {
-      inputSize: "md",
-    },
-  },
+const sizeClasses = {
+  md: 'h-10 rounded-lg body-14-regular',
+  sm: 'h-8 rounded-md body-14-regular',
+} as const
+
+const chipsSizeClasses = {
+  md: 'min-h-10 rounded-lg',
+  sm: 'min-h-8 rounded-md',
+} as const
+
+const popupClasses = cn(
+  'min-w-[var(--anchor-width)] origin-[var(--transform-origin)] rounded-lg p-1.5',
+  'bg-elevation-surface-overlay-default',
+  'shadow-[0_6px_12px_0_var(--shadow-color-elevation-default),0_0px_1px_0_var(--shadow-color-elevation-strong)]',
+  'transition-[transform,scale,opacity] outline-none',
+  'data-[ending-style]:scale-95 data-[ending-style]:opacity-0',
+  'data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
 )
 
-type ComboboxInputSize = VariantProps<
-  typeof comboboxTriggerVariants
->["inputSize"]
+const itemClasses = cn(
+  'group flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 body-14-regular text-default',
+  'outline-none select-none',
+  'data-[highlighted]:bg-interaction-hovered',
+  'data-[selected]:body-14-medium',
+)
 
-export type ComboboxRootProps = ComponentProps<typeof BaseCombobox.Root>
-
-export function ComboboxRoot(props: ComboboxRootProps) {
-  return <BaseCombobox.Root {...props} />
-}
-
-export type ComboboxInputProps = Omit<
-  ComponentProps<typeof BaseCombobox.Input>,
-  "className" | "size"
-> & {
-  inputSize?: ComboboxInputSize
+export type ComboboxProps<T> = {
+  items: T[]
+  value?: T | null
+  defaultValue?: T | null
+  onValueChange?: (value: T | null, eventDetails: ComboboxRoot.ChangeEventDetails) => void
+  placeholder?: string
+  size?: 'md' | 'sm'
+  disabled?: boolean
   error?: boolean
+  getLabel?: (item: T) => string
   className?: string
 }
 
-export function ComboboxInput({
-  inputSize = "md",
-  error,
+export function Combobox<T>({
+  items,
+  value,
+  defaultValue,
+  onValueChange,
+  placeholder = 'Placeholder',
+  size = 'md',
+  disabled = false,
+  error = false,
+  getLabel = (item: T) => String(item),
   className,
-  ...props
-}: ComboboxInputProps) {
+}: ComboboxProps<T>) {
   return (
-    <BaseCombobox.Trigger
-      className={cn(
-        comboboxTriggerVariants({ inputSize }),
-        error && "border-danger focus-within:ring-danger",
-        className,
-      )}
+    <BaseCombobox.Root
+      items={items}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      disabled={disabled}
+      itemToStringLabel={(item) => getLabel(item)}
     >
-      <BaseCombobox.Input
-        className={cn(
-          "w-full flex-1 bg-transparent text-default outline-none",
-          "placeholder:text-subtle",
-        )}
-        {...props}
-      />
-      <BaseCombobox.Icon className="shrink-0 text-subtle">
-        <CaretDownIcon size={16} />
-      </BaseCombobox.Icon>
-    </BaseCombobox.Trigger>
-  )
-}
-
-export type ComboboxContentProps = Omit<
-  ComponentProps<typeof BaseCombobox.Popup>,
-  "className"
-> & {
-  className?: string
-}
-
-export function ComboboxContent({
-  className,
-  children,
-  ...props
-}: ComboboxContentProps) {
-  return (
-    <BaseCombobox.Portal>
-      <BaseCombobox.Positioner>
-        <BaseCombobox.Popup
+      <div className={cn('relative', className)}>
+        <BaseCombobox.Input
           className={cn(
-            "z-50 rounded-lg border border-default",
-            "bg-elevation-surface-overlay-default p-1 shadow-overlay",
-            className,
+            'w-full border pr-14 pl-3',
+            sizeClasses[size],
+            'bg-input-default text-default transition-colors outline-none',
+            'placeholder:text-placeholder',
+            'hover:bg-input-hovered',
+            'focus:border-focused focus:ring-1 focus:ring-[var(--border-color-focused)]',
+            'disabled:cursor-not-allowed disabled:border-disabled disabled:bg-input-disabled disabled:text-disabled disabled:placeholder:text-disabled',
+            error ? 'border-error ring-1 ring-[var(--border-color-error)]' : 'border-input',
           )}
-          {...props}
+          placeholder={placeholder}
+        />
+        <BaseCombobox.Clear
+          className={cn(
+            'absolute top-1/2 right-7 inline-flex size-6 -translate-y-1/2 items-center justify-center rounded-sm text-subtle',
+            'transition-colors hover:bg-interaction-hovered active:bg-interaction-pressed',
+          )}
         >
-          <BaseCombobox.List>{children}</BaseCombobox.List>
-        </BaseCombobox.Popup>
-      </BaseCombobox.Positioner>
-    </BaseCombobox.Portal>
+          <XIcon size={16} weight="bold" />
+        </BaseCombobox.Clear>
+        <BaseCombobox.Icon className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-subtle">
+          <CaretDownIcon size={16} weight="bold" />
+        </BaseCombobox.Icon>
+      </div>
+
+      <BaseCombobox.Portal>
+        <BaseCombobox.Positioner sideOffset={4}>
+          <BaseCombobox.Popup className={popupClasses}>
+            <BaseCombobox.List>
+              {(item: T) => (
+                <BaseCombobox.Item key={getLabel(item)} value={item} className={itemClasses}>
+                  <BaseCombobox.ItemIndicator
+                    className="invisible inline-flex size-4 items-center justify-center text-default data-[selected]:visible"
+                    keepMounted
+                  >
+                    <CheckIcon size={14} weight="bold" />
+                  </BaseCombobox.ItemIndicator>
+                  {getLabel(item)}
+                </BaseCombobox.Item>
+              )}
+            </BaseCombobox.List>
+            <BaseCombobox.Empty className="flex items-center px-2 py-1.5 body-14-regular text-subtle">
+              No item found
+            </BaseCombobox.Empty>
+          </BaseCombobox.Popup>
+        </BaseCombobox.Positioner>
+      </BaseCombobox.Portal>
+    </BaseCombobox.Root>
   )
 }
 
-export type ComboboxItemProps = Omit<
-  ComponentProps<typeof BaseCombobox.Item>,
-  "className"
-> & {
+export type MultiComboboxProps<T> = {
+  items: T[]
+  value?: T[]
+  defaultValue?: T[]
+  onValueChange?: (value: T[], eventDetails: ComboboxRoot.ChangeEventDetails) => void
+  placeholder?: string
+  size?: 'md' | 'sm'
+  disabled?: boolean
+  error?: boolean
+  getLabel?: (item: T) => string
   className?: string
 }
 
-export function ComboboxItem({
+export function MultiCombobox<T>({
+  items,
+  value,
+  defaultValue,
+  onValueChange,
+  placeholder = 'Placeholder',
+  size = 'md',
+  disabled = false,
+  error = false,
+  getLabel = (item: T) => String(item),
   className,
-  children,
-  ...props
-}: ComboboxItemProps) {
+}: MultiComboboxProps<T>) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
   return (
-    <BaseCombobox.Item
-      className={cn(
-        "flex w-full cursor-pointer items-center justify-between",
-        "rounded-md px-3 py-2 body-14-medium text-default",
-        "transition-colors",
-        "focus-visible:outline-hidden",
-        "data-highlighted:bg-interaction-hovered",
-        "data-disabled:pointer-events-none data-disabled:text-disabled",
-        className,
-      )}
-      {...props}
+    <BaseCombobox.Root
+      multiple
+      items={items}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      disabled={disabled}
+      itemToStringLabel={(item) => getLabel(item)}
     >
-      {children}
-      <BaseCombobox.ItemIndicator className="text-brand">
-        <CheckIcon size={16} />
-      </BaseCombobox.ItemIndicator>
-    </BaseCombobox.Item>
-  )
-}
-
-export type ComboboxEmptyProps = Omit<
-  ComponentProps<typeof BaseCombobox.Empty>,
-  "className"
-> & {
-  className?: string
-}
-
-export function ComboboxEmpty({
-  className,
-  children,
-  ...props
-}: ComboboxEmptyProps) {
-  return (
-    <BaseCombobox.Empty
-      className={cn("body-14-medium px-3 py-2 text-subtle", className)}
-      {...props}
-    >
-      {children || "No results found"}
-    </BaseCombobox.Empty>
-  )
-}
-
-export type ComboboxChipProps = {
-  children: string
-  onRemove?: () => void
-  className?: string
-}
-
-export function ComboboxChip({
-  children,
-  onRemove,
-  className,
-}: ComboboxChipProps) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1 rounded-md bg-neutral-default",
-        "body-12-medium px-2 py-0.5 text-default",
-        className,
-      )}
-    >
-      {children}
-      {onRemove && (
-        <button
-          type="button"
-          className="cursor-pointer text-subtle hover:text-default [&_svg]:size-3"
-          onClick={onRemove}
+      <div className={cn('relative inline-flex', className)}>
+        <BaseCombobox.Chips
+          ref={containerRef}
+          className={cn(
+            'flex w-full flex-wrap items-center gap-1 border p-1.5',
+            chipsSizeClasses[size],
+            'bg-input-default transition-colors',
+            error
+              ? 'border-error ring-1 ring-[var(--border-color-error)]'
+              : 'border-input focus-within:border-focused focus-within:ring-1 focus-within:ring-[var(--border-color-focused)]',
+          )}
         >
-          <XIcon />
-        </button>
-      )}
-    </span>
+          <BaseCombobox.Value>
+            {(selectedValues: T[]) => (
+              <Fragment>
+                {selectedValues.map((item) => (
+                  <BaseCombobox.Chip
+                    key={getLabel(item)}
+                    className="inline-flex items-center gap-1 rounded-md bg-interaction-hovered py-0.5 pr-1 pl-2 body-14-medium text-default"
+                  >
+                    {getLabel(item)}
+                    <BaseCombobox.ChipRemove className="inline-flex size-6 items-center justify-center rounded-sm text-subtle transition-colors hover:bg-interaction-pressed">
+                      <XIcon size={12} weight="bold" />
+                    </BaseCombobox.ChipRemove>
+                  </BaseCombobox.Chip>
+                ))}
+                <BaseCombobox.Input
+                  className={cn(
+                    'min-w-16 flex-1 bg-transparent py-0.5 pl-1.5 body-14-regular text-default outline-none',
+                    'placeholder:text-placeholder',
+                    'disabled:cursor-not-allowed disabled:text-disabled disabled:placeholder:text-disabled',
+                  )}
+                  placeholder={selectedValues.length === 0 ? placeholder : ''}
+                />
+              </Fragment>
+            )}
+          </BaseCombobox.Value>
+        </BaseCombobox.Chips>
+      </div>
+
+      <BaseCombobox.Portal>
+        <BaseCombobox.Positioner sideOffset={4} anchor={containerRef}>
+          <BaseCombobox.Popup className={popupClasses}>
+            <BaseCombobox.List>
+              {(item: T) => (
+                <BaseCombobox.Item key={getLabel(item)} value={item} className={itemClasses}>
+                  <BaseCombobox.ItemIndicator
+                    className="invisible inline-flex size-4 items-center justify-center text-default data-[selected]:visible"
+                    keepMounted
+                  >
+                    <CheckIcon size={14} weight="bold" />
+                  </BaseCombobox.ItemIndicator>
+                  {getLabel(item)}
+                </BaseCombobox.Item>
+              )}
+            </BaseCombobox.List>
+            <BaseCombobox.Empty className="flex items-center px-2 py-1.5 body-14-regular text-subtle">
+              No item found
+            </BaseCombobox.Empty>
+          </BaseCombobox.Popup>
+        </BaseCombobox.Positioner>
+      </BaseCombobox.Portal>
+    </BaseCombobox.Root>
   )
 }
-
-export { comboboxTriggerVariants }

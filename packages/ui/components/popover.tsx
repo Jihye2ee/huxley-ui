@@ -1,15 +1,14 @@
-"use client"
+'use client'
 
-import { Popover as BasePopover } from "@base-ui/react/popover"
-import { XIcon } from "@phosphor-icons/react"
-import type { ComponentProps } from "react"
+import { Popover as BasePopover } from '@base-ui/react/popover'
+import type { ComponentProps, ReactNode } from 'react'
 
-import { cn } from "../utils/cn"
+import { cn } from '../utils/cn'
 
-export type PopoverRootProps = ComponentProps<typeof BasePopover.Root>
+type PopoverProps = ComponentProps<typeof BasePopover.Root>
 
-export function PopoverRoot(props: PopoverRootProps) {
-  return <BasePopover.Root {...props} />
+export function PopoverRoot({ children, ...props }: PopoverProps) {
+  return <BasePopover.Root {...props}>{children}</BasePopover.Root>
 }
 
 export type PopoverTriggerProps = ComponentProps<typeof BasePopover.Trigger>
@@ -18,32 +17,35 @@ export function PopoverTrigger(props: PopoverTriggerProps) {
   return <BasePopover.Trigger {...props} />
 }
 
-export type PopoverContentProps = Omit<
-  ComponentProps<typeof BasePopover.Popup>,
-  "className"
-> & {
-  side?: "top" | "bottom" | "left" | "right"
-  sideOffset?: number
+export type PopoverCloseProps = ComponentProps<typeof BasePopover.Close>
+
+export function PopoverClose(props: PopoverCloseProps) {
+  return <BasePopover.Close {...props} />
+}
+
+type PopoverContentProps = {
+  children: ReactNode
   className?: string
+  side?: 'top' | 'bottom' | 'left' | 'right'
+  align?: 'start' | 'center' | 'end'
+  sideOffset?: number
 }
 
 export function PopoverContent({
-  side = "bottom",
-  sideOffset = 8,
-  className,
   children,
-  ...props
+  className,
+  side = 'bottom',
+  align = 'center',
+  sideOffset = 8,
 }: PopoverContentProps) {
   return (
     <BasePopover.Portal>
-      <BasePopover.Positioner side={side} sideOffset={sideOffset}>
+      <BasePopover.Positioner side={side} align={align} sideOffset={sideOffset}>
         <BasePopover.Popup
           className={cn(
-            "z-50 max-w-xs rounded-xl border border-default",
-            "bg-elevation-surface-overlay-default p-4 shadow-overlay",
+            'max-w-xs origin-[var(--transform-origin)] rounded-lg bg-elevation-surface-overlay-default p-4 shadow-[0_6px_12px_0_var(--shadow-color-elevation-default),0_0px_1px_0_var(--shadow-color-elevation-strong)] transition-[transform,scale,opacity] outline-none data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
             className,
           )}
-          {...props}
         >
           {children}
         </BasePopover.Popup>
@@ -52,82 +54,26 @@ export function PopoverContent({
   )
 }
 
-export type PopoverTitleProps = Omit<
-  ComponentProps<typeof BasePopover.Title>,
-  "className"
-> & {
+type PopoverTitleProps = {
+  children: ReactNode
   className?: string
 }
 
-export function PopoverTitle({ className, ...props }: PopoverTitleProps) {
-  return (
-    <BasePopover.Title
-      className={cn("title-14-semibold text-default", className)}
-      {...props}
-    />
-  )
+export function PopoverTitle({ children, className }: PopoverTitleProps) {
+  return <BasePopover.Title className={cn('body-14-semibold text-default', className)}>{children}</BasePopover.Title>
 }
 
-export type PopoverDescriptionProps = Omit<
-  ComponentProps<typeof BasePopover.Description>,
-  "className"
-> & {
+type PopoverDescriptionProps = {
+  children: ReactNode
   className?: string
 }
 
-export function PopoverDescription({
-  className,
-  ...props
-}: PopoverDescriptionProps) {
+export function PopoverDescription({ children, className }: PopoverDescriptionProps) {
   return (
-    <BasePopover.Description
-      className={cn("body-12-medium mt-1 text-subtle", className)}
-      {...props}
-    />
+    <BasePopover.Description className={cn('mt-1 body-14-regular text-subtle', className)}>
+      {children}
+    </BasePopover.Description>
   )
 }
 
-export type PopoverCloseProps = Omit<
-  ComponentProps<typeof BasePopover.Close>,
-  "className"
-> & {
-  className?: string
-}
-
-export function PopoverClose({ className, ...props }: PopoverCloseProps) {
-  return (
-    <BasePopover.Close
-      className={cn(
-        "absolute right-3 top-3 inline-flex size-6 cursor-pointer",
-        "items-center justify-center rounded-md",
-        "hover:bg-interaction-hovered",
-        "focus-visible:outline-hidden",
-        "[&_svg]:size-4",
-        className,
-      )}
-      {...props}
-    >
-      <XIcon />
-    </BasePopover.Close>
-  )
-}
-
-export type PopoverArrowProps = Omit<
-  ComponentProps<typeof BasePopover.Arrow>,
-  "className"
-> & {
-  className?: string
-}
-
-export function PopoverArrow({ className, ...props }: PopoverArrowProps) {
-  return (
-    <BasePopover.Arrow
-      className={cn(
-        "fill-elevation-surface-overlay-default",
-        "[&>path:first-child]:stroke-default",
-        className,
-      )}
-      {...props}
-    />
-  )
-}
+export { PopoverRoot as Popover }

@@ -1,82 +1,75 @@
-"use client"
+'use client'
 
-import { Slider as BaseSlider } from "@base-ui/react/slider"
-import type { ComponentProps, ReactNode } from "react"
+import { Slider as BaseSlider } from '@base-ui/react/slider'
+import type { ComponentProps, ReactNode } from 'react'
 
-import { cn } from "../utils/cn"
+import { cn } from '../utils/cn'
 
-export type SliderProps = Omit<
-  ComponentProps<typeof BaseSlider.Root>,
-  "className"
-> & {
+const thumbClasses = cn(
+  'size-4 -translate-1/2 rounded-full border-2 border-selected bg-elevation-surface-default shadow-sm transition-colors duration-150 ease-out',
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-color-focused)]',
+  'hover:border-bold',
+  'data-[dragging]:border-bold',
+  'data-[disabled]:border-disabled data-[disabled]:bg-elevation-surface-default data-[disabled]:shadow-none',
+)
+
+const trackClasses = cn('relative h-1.5 w-full rounded-full bg-neutral-default', 'data-[disabled]:bg-disabled')
+
+const indicatorClasses = cn('rounded-full bg-neutral-bold-default', 'data-[disabled]:bg-disabled')
+
+const controlClasses = cn('flex cursor-pointer items-center py-1', 'data-[disabled]:cursor-not-allowed')
+
+type SliderProps = Omit<ComponentProps<typeof BaseSlider.Root>, 'className'> & {
   label?: ReactNode
   showValue?: boolean
   className?: string
 }
 
-export function Slider({
-  label,
-  showValue = false,
-  className,
-  disabled,
-  ...props
-}: SliderProps) {
+export function Slider({ label, showValue, className, disabled, ...props }: SliderProps) {
   return (
-    <BaseSlider.Root
-      className={cn("flex w-full flex-col", className)}
-      disabled={disabled}
-      {...props}
-    >
+    <BaseSlider.Root disabled={disabled} {...props} className={cn('flex w-full flex-col gap-2', className)}>
       {(label || showValue) && (
-        <div className="mb-2 flex items-center justify-between">
-          {label && (
-            <span
-              className={cn(
-                "body-14-medium text-default",
-                disabled && "text-disabled",
-              )}
-            >
-              {label}
-            </span>
-          )}
+        <div className="flex items-center justify-between">
+          {label && <span className={cn('body-14-medium text-default', disabled && 'text-disabled')}>{label}</span>}
+          {showValue && <BaseSlider.Value className={cn('body-14-regular text-subtle', disabled && 'text-disabled')} />}
+        </div>
+      )}
+      <BaseSlider.Control className={controlClasses}>
+        <BaseSlider.Track className={trackClasses}>
+          <BaseSlider.Indicator className={indicatorClasses} />
+          <BaseSlider.Thumb className={thumbClasses} />
+        </BaseSlider.Track>
+      </BaseSlider.Control>
+    </BaseSlider.Root>
+  )
+}
+
+type RangeSliderProps = Omit<ComponentProps<typeof BaseSlider.Root>, 'className'> & {
+  label?: ReactNode
+  showValue?: boolean
+  className?: string
+}
+
+export function RangeSlider({ label, showValue, className, disabled, ...props }: RangeSliderProps) {
+  return (
+    <BaseSlider.Root disabled={disabled} {...props} className={cn('flex w-full flex-col gap-2', className)}>
+      {(label || showValue) && (
+        <div className="flex items-center justify-between">
+          {label && <span className={cn('body-14-medium text-default', disabled && 'text-disabled')}>{label}</span>}
           {showValue && (
-            <BaseSlider.Value
-              className={cn(
-                "body-14-medium text-default",
-                disabled && "text-disabled",
-              )}
-            >
-              {(formattedValues) => {
-                if (formattedValues.length === 1) {
-                  return formattedValues[0]
-                }
-                return formattedValues.join(" \u2013 ")
-              }}
+            <BaseSlider.Value className={cn('body-14-regular text-subtle', disabled && 'text-disabled')}>
+              {(formattedValues) => formattedValues.join(' – ')}
             </BaseSlider.Value>
           )}
         </div>
       )}
-      <BaseSlider.Track
-        className={cn(
-          "relative h-1 w-full rounded-full bg-neutral-default",
-          disabled && "opacity-40",
-        )}
-      >
-        <BaseSlider.Indicator
-          className={cn(
-            "absolute h-full rounded-full",
-            disabled ? "bg-subtle" : "bg-brand-default",
-          )}
-        />
-        <BaseSlider.Thumb
-          className={cn(
-            "absolute top-1/2 size-5 -translate-x-1/2 -translate-y-1/2",
-            "cursor-pointer rounded-full bg-white shadow-raised",
-            "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-default",
-            disabled && "cursor-not-allowed bg-subtle",
-          )}
-        />
-      </BaseSlider.Track>
+      <BaseSlider.Control className={controlClasses}>
+        <BaseSlider.Track className={trackClasses}>
+          <BaseSlider.Indicator className={indicatorClasses} />
+          <BaseSlider.Thumb index={0} aria-label="Minimum" className={thumbClasses} />
+          <BaseSlider.Thumb index={1} aria-label="Maximum" className={thumbClasses} />
+        </BaseSlider.Track>
+      </BaseSlider.Control>
     </BaseSlider.Root>
   )
 }

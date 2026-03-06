@@ -1,121 +1,86 @@
-"use client"
+'use client'
 
-import { Radio as BaseRadio } from "@base-ui/react/radio"
-import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group"
-import { cva, type VariantProps } from "class-variance-authority"
-import type { ComponentProps, ReactNode } from "react"
+import { Radio as BaseRadio } from '@base-ui/react/radio'
+import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group'
+import type { ReactNode } from 'react'
 
-import { cn } from "../utils/cn"
+import { cn } from '../utils/cn'
 
-const radioVariants = cva(
-  cn(
-    "relative inline-flex shrink-0 items-center justify-center rounded-full",
-    "border-2 border-default transition-colors",
-    "data-checked:border-brand-default data-checked:bg-transparent",
-  ),
-  {
-    variants: {
-      size: {
-        default: "size-5",
-        small: "size-4",
-      },
-    },
-    defaultVariants: {
-      size: "default",
-    },
-  },
-)
-
-const dotVariants = cva(
-  cn(
-    "rounded-full bg-brand-default",
-    "transition-transform duration-150",
-    "scale-0 data-checked:scale-100",
-  ),
-  {
-    variants: {
-      size: {
-        default: "size-2.5",
-        small: "size-2",
-      },
-    },
-    defaultVariants: {
-      size: "default",
-    },
-  },
-)
-
-type RadioSize = VariantProps<typeof radioVariants>["size"]
-
-export type RadioGroupProps = Omit<
-  ComponentProps<typeof BaseRadioGroup>,
-  "className"
-> & {
-  orientation?: "vertical" | "horizontal"
+type RadioGroupProps = {
+  children: ReactNode
+  value?: string
+  defaultValue?: string
+  onValueChange?: (value: string) => void
+  disabled?: boolean
   className?: string
 }
 
-export function RadioGroup({
-  orientation = "vertical",
-  className,
-  ...props
-}: RadioGroupProps) {
+export function RadioGroup({ children, className, ...props }: RadioGroupProps) {
   return (
-    <BaseRadioGroup
+    <BaseRadioGroup {...props} className={cn('flex flex-col gap-1.5', className)}>
+      {children}
+    </BaseRadioGroup>
+  )
+}
+
+type RadioItemProps = {
+  value: string
+  size?: 'md' | 'sm'
+  disabled?: boolean
+  className?: string
+}
+
+const radioSizeClasses = {
+  md: 'size-5 rounded-full data-[checked]:border-[6px]',
+  sm: 'size-[18px] rounded-full data-[checked]:border-[5px]',
+} as const
+
+export function RadioItem({ value, size = 'md', disabled, className }: RadioItemProps) {
+  return (
+    <BaseRadio.Root
+      value={value}
+      disabled={disabled}
       className={cn(
-        "flex",
-        orientation === "vertical" ? "flex-col gap-3" : "flex-row gap-6",
+        'hover:bg-input-hovered focus-visible:outline-[var(--border-color-focused)]',
+        'data-[checked]:border-selected data-[checked]:hover:border-bold',
+        'data-[disabled]:border-disabled data-[disabled]:bg-input-disabled data-[disabled]:hover:bg-input-disabled',
+        'data-[disabled]:data-[checked]:border-disabled data-[disabled]:data-[checked]:hover:border-disabled',
+        'inline-flex shrink-0 cursor-pointer items-center justify-center border border-input bg-input-default transition-colors duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2',
+        'data-[disabled]:cursor-not-allowed',
+        radioSizeClasses[size],
         className,
       )}
-      {...props}
     />
   )
 }
 
-export type RadioItemProps = Omit<
-  ComponentProps<typeof BaseRadio.Root>,
-  "className"
-> & {
-  label?: ReactNode
-  size?: RadioSize
+type RadioProps = {
+  label: ReactNode
+  value: string
+  size?: 'md' | 'sm'
+  disabled?: boolean
   className?: string
 }
 
-export function RadioItem({
-  label,
-  size = "default",
-  className,
-  disabled,
-  ...props
-}: RadioItemProps) {
+const gapClasses = {
+  md: 'gap-1',
+  sm: 'gap-1',
+} as const
+
+export function Radio({ label, value, size = 'md', disabled = false, className }: RadioProps) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: Base UI Radio renders the input internally
     <label
       className={cn(
-        "inline-flex cursor-pointer items-center gap-2",
-        disabled && "cursor-not-allowed opacity-40",
+        'inline-flex cursor-pointer items-center select-none',
+        gapClasses[size],
+        disabled && 'cursor-not-allowed',
         className,
       )}
     >
-      <BaseRadio.Root
-        className={radioVariants({ size })}
-        disabled={disabled}
-        {...props}
-      >
-        <BaseRadio.Indicator className={dotVariants({ size })} />
-      </BaseRadio.Root>
-      {label && (
-        <span
-          className={cn(
-            "body-14-medium text-default",
-            disabled && "text-disabled",
-          )}
-        >
-          {label}
-        </span>
-      )}
+      <span className="flex items-center justify-center p-1">
+        <RadioItem value={value} size={size} disabled={disabled} />
+      </span>
+      <span className={cn('body-14-regular text-default', disabled && 'text-disabled')}>{label}</span>
     </label>
   )
 }
-
-export { radioVariants }
