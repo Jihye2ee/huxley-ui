@@ -78,50 +78,17 @@ export const catalog = defineCatalog(schema, {
       props: z.object({
         label: z.string().describe("Button text"),
         appearance: z
-          .enum(["default", "subtle", "ghost", "error", "errorSubtle"])
+          .enum(["default", "subtle", "ghost", "error", "error-subtle"])
           .nullable()
           .describe("Visual style. Default: default (filled brand color)"),
         size: z
-          .enum(["small", "medium", "large"])
+          .enum(["sm", "md", "lg"])
           .nullable()
-          .describe("Button size. Default: small"),
+          .describe("Button size. Default: sm"),
         disabled: z.boolean().nullable().describe("Disable the button"),
       }),
       description:
-        "Clickable button. Appearances: default (brand), subtle (neutral), ghost (transparent), error, errorSubtle.",
-    },
-    TextField: {
-      props: z.object({
-        label: z.string().nullable().describe("Field label above the input"),
-        name: z
-          .string()
-          .nullable()
-          .describe("Field name for form data binding"),
-        placeholder: z
-          .string()
-          .nullable()
-          .describe("Placeholder text inside the input"),
-        description: z
-          .string()
-          .nullable()
-          .describe("Helper text below the input"),
-        error: z
-          .string()
-          .nullable()
-          .describe("Error message (replaces description)"),
-        size: z
-          .enum(["small", "medium", "large"])
-          .nullable()
-          .describe("Input size. Default: medium"),
-        disabled: z.boolean().nullable().describe("Disable the input"),
-        type: z
-          .enum(["text", "email", "password", "number", "tel", "url"])
-          .nullable()
-          .describe("HTML input type. Default: text"),
-        value: z.string().nullable().describe("Current value"),
-      }),
-      description:
-        "Text input with label, description, and validation error display.",
+        "Clickable button. Appearances: default (brand), subtle (neutral), ghost (transparent), error, error-subtle.",
     },
     Avatar: {
       props: z.object({
@@ -135,11 +102,11 @@ export const catalog = defineCatalog(schema, {
           .nullable()
           .describe("Single character shown when src is not provided"),
         size: z
-          .enum(["large", "small"])
+          .enum(["lg", "default"])
           .nullable()
-          .describe("Avatar size. Default: large"),
+          .describe("Avatar size. Default: lg"),
         color: z
-          .enum(["neutral", "orange", "green", "blue"])
+          .enum(["stone", "orange", "lime", "indigo"])
           .nullable()
           .describe("Avatar color variant. Default: neutral"),
       }),
@@ -155,9 +122,9 @@ export const catalog = defineCatalog(schema, {
           .describe("Checked state. Default: false"),
         disabled: z.boolean().nullable().describe("Disable the checkbox"),
         size: z
-          .enum(["default", "sm"])
+          .enum(["md", "sm"])
           .nullable()
-          .describe("Checkbox size. Default: default"),
+          .describe("Checkbox size. Default: md"),
       }),
       description: "Single checkbox with label.",
     },
@@ -256,7 +223,7 @@ export const catalog = defineCatalog(schema, {
           .nullable()
           .describe("Dialog description text"),
         size: z
-          .enum(["default", "medium", "large"])
+          .enum(["default", "md", "lg"])
           .nullable()
           .describe("Dialog width. Default: default (480px)"),
       }),

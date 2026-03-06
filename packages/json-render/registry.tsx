@@ -3,42 +3,35 @@
 import {
   AccordionRoot,
   AccordionItem as UIAccordionItem,
-} from "@huxley-ui/ui/components/accordion"
-import { Avatar } from "@huxley-ui/ui/components/avatar"
-import { Button } from "@huxley-ui/ui/components/button"
-import { Card } from "@huxley-ui/ui/components/card"
-import { Checkbox } from "@huxley-ui/ui/components/checkbox"
-import { CheckboxGroup } from "@huxley-ui/ui/components/checkbox-group"
+} from "@jamie-ui/ui/components/accordion"
+import { Avatar } from "@jamie-ui/ui/components/avatar"
+import { Button } from "@jamie-ui/ui/components/button"
+import { Card } from "@jamie-ui/ui/components/card"
+import { Checkbox } from "@jamie-ui/ui/components/checkbox"
+import { CheckboxGroup } from "@jamie-ui/ui/components/checkbox-group"
 import {
   RadioGroup,
-  RadioItem as UIRadioItem,
-} from "@huxley-ui/ui/components/radio"
+  Radio as UIRadio,
+} from "@jamie-ui/ui/components/radio"
 import {
   SelectContent,
   SelectRoot,
   SelectTrigger,
   SelectItem as UISelectItem,
-} from "@huxley-ui/ui/components/select"
-import { Separator } from "@huxley-ui/ui/components/separator"
-import { Slider } from "@huxley-ui/ui/components/slider"
-import { Stack } from "@huxley-ui/ui/components/stack"
-import { Switch } from "@huxley-ui/ui/components/switch"
-import { TextField } from "@huxley-ui/ui/components/text-field"
-import { cn } from "@huxley-ui/ui/utils/cn"
+} from "@jamie-ui/ui/components/select"
+import { Separator } from "@jamie-ui/ui/components/separator"
+import { Slider } from "@jamie-ui/ui/components/slider"
+import { Stack } from "@jamie-ui/ui/components/stack"
+import { Switch } from "@jamie-ui/ui/components/switch"
+import { cn } from "@jamie-ui/ui/utils/cn"
 import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogRoot,
   AlertDialogTitle,
-} from "@huxley-ui/ui/components/alert-dialog"
-import {
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem as UIComboboxItem,
-  ComboboxRoot,
-} from "@huxley-ui/ui/components/combobox"
+} from "@jamie-ui/ui/components/alert-dialog"
+import { Combobox } from "@jamie-ui/ui/components/combobox"
 import {
   DialogContent,
   DialogDescription,
@@ -46,13 +39,13 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-} from "@huxley-ui/ui/components/dialog"
+} from "@jamie-ui/ui/components/dialog"
 import {
   MenuContent,
   MenuItem as UIMenuItem,
   MenuRoot,
   MenuTrigger,
-} from "@huxley-ui/ui/components/menu"
+} from "@jamie-ui/ui/components/menu"
 import {
   CheckCircleIcon,
   WarningCircleIcon,
@@ -64,8 +57,7 @@ import {
   PopoverRoot,
   PopoverTitle,
   PopoverTrigger,
-} from "@huxley-ui/ui/components/popover"
-import { toastVariants } from "@huxley-ui/ui/components/toast"
+} from "@jamie-ui/ui/components/popover"
 
 import { defineRegistry } from "@json-render/react"
 
@@ -145,40 +137,26 @@ export const { registry } = defineRegistry(catalog, {
             | "subtle"
             | "ghost"
             | "error"
-            | "errorSubtle"
+            | "error-subtle"
         }
-        size={(props.size ?? "small") as "small" | "medium" | "large"}
+        size={(props.size ?? "sm") as "sm" | "md" | "lg"}
         disabled={props.disabled ?? false}
       >
         {props.label}
       </Button>
     ),
 
-    TextField: ({ props }) => (
-      <TextField
-        label={props.label ?? undefined}
-        name={props.name ?? undefined}
-        placeholder={props.placeholder ?? undefined}
-        description={props.description ?? undefined}
-        error={props.error ?? undefined}
-        size={(props.size ?? "medium") as "small" | "medium" | "large"}
-        disabled={props.disabled ?? false}
-        type={props.type ?? "text"}
-        defaultValue={props.value ?? ""}
-      />
-    ),
 
     Avatar: ({ props }) => (
       <Avatar
         src={props.src ?? undefined}
         alt={props.alt ?? undefined}
-        size={(props.size ?? "large") as "large" | "small"}
+        size={(props.size ?? "lg") as "lg" | "default"}
         color={
-          (props.color ?? "neutral") as "neutral" | "orange" | "green" | "blue"
+          (props.color ?? "orange") as "stone" | "orange" | "lime" | "indigo"
         }
-      >
-        {props.initials ?? undefined}
-      </Avatar>
+        name={props.initials ?? undefined}
+      />
     ),
 
     Checkbox: ({ props }) => (
@@ -186,7 +164,7 @@ export const { registry } = defineRegistry(catalog, {
         label={props.label}
         defaultChecked={props.checked ?? false}
         disabled={props.disabled ?? false}
-        size={(props.size ?? "default") as "default" | "sm"}
+        size={(props.size ?? "md") as "md" | "sm"}
       />
     ),
 
@@ -209,8 +187,10 @@ export const { registry } = defineRegistry(catalog, {
 
     RadioGroup: ({ props, children }) => (
       <RadioGroup
-        orientation={
-          (props.orientation ?? "vertical") as "vertical" | "horizontal"
+        className={
+          props.orientation === "horizontal"
+            ? "flex flex-row gap-4"
+            : undefined
         }
       >
         {children}
@@ -218,7 +198,7 @@ export const { registry } = defineRegistry(catalog, {
     ),
 
     RadioItem: ({ props }) => (
-      <UIRadioItem
+      <UIRadio
         label={props.label}
         value={props.value}
         disabled={props.disabled ?? false}
@@ -246,9 +226,8 @@ export const { registry } = defineRegistry(catalog, {
           <SelectTrigger
             size={(props.size ?? "md") as "md" | "sm"}
             disabled={props.disabled ?? false}
-          >
-            {props.placeholder ?? "Select..."}
-          </SelectTrigger>
+            placeholder={props.placeholder ?? "Select..."}
+          />
           <SelectContent>
             {options.map((opt: { label: string; value: string }) => (
               <UISelectItem key={opt.value} value={opt.value}>
@@ -271,7 +250,7 @@ export const { registry } = defineRegistry(catalog, {
       <DialogRoot defaultOpen modal={false}>
         <DialogContent
           size={
-            (props.size ?? "default") as "default" | "medium" | "large"
+            (props.size ?? "default") as "default" | "md" | "lg"
           }
         >
           <DialogHeader>
@@ -297,7 +276,7 @@ export const { registry } = defineRegistry(catalog, {
             </AlertDialogDescription>
           )}
           <AlertDialogFooter>
-            <Button appearance="subtle" size="medium">
+            <Button appearance="subtle" size="md">
               {props.cancelLabel ?? "Cancel"}
             </Button>
             <Button
@@ -306,7 +285,7 @@ export const { registry } = defineRegistry(catalog, {
                   | "default"
                   | "error"
               }
-              size="medium"
+              size="md"
             >
               {props.confirmLabel ?? "Confirm"}
             </Button>
@@ -367,21 +346,12 @@ export const { registry } = defineRegistry(catalog, {
     Combobox: ({ props }) => {
       const options = props.options ?? []
       return (
-        <ComboboxRoot>
-          <ComboboxInput
-            inputSize={(props.inputSize ?? "md") as "md" | "sm"}
-            disabled={props.disabled ?? false}
-            placeholder={props.placeholder ?? "Search..."}
-          />
-          <ComboboxContent>
-            {options.map((opt: { label: string; value: string }) => (
-              <UIComboboxItem key={opt.value} value={opt.value}>
-                {opt.label}
-              </UIComboboxItem>
-            ))}
-            <ComboboxEmpty />
-          </ComboboxContent>
-        </ComboboxRoot>
+        <Combobox
+          items={options.map((opt: { label: string; value: string }) => opt.label)}
+          size={(props.inputSize ?? "md") as "md" | "sm"}
+          disabled={props.disabled ?? false}
+          placeholder={props.placeholder ?? "Search..."}
+        />
       )
     },
 
@@ -404,13 +374,11 @@ export const { registry } = defineRegistry(catalog, {
         appearance !== "default" ? iconMap[appearance] : null
       return (
         <div
-          className={toastVariants({
-            appearance: appearance as
-              | "default"
-              | "warning"
-              | "error"
-              | "success",
-          })}
+          className={cn(
+            "flex items-center gap-3 rounded-xl p-3",
+            "bg-elevation-surface-overlay-default",
+            "shadow-[0_0_1px_var(--shadow-color-elevation-strong),0_4px_12px_var(--shadow-color-elevation-default)]",
+          )}
         >
           {Icon && (
             <Icon
