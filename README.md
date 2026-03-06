@@ -1,7 +1,7 @@
-# huxley-ui
+# jamie-ui
 
 <p align="center">
-  <img src="assets/preview.jpg" alt="huxley-ui components" width="720" />
+  <img src="assets/preview.jpg" alt="jamie-ui components" width="720" />
 </p>
 
 디자인 시스템 기반 UI 컴포넌트 라이브러리 + AI Playground입니다.
@@ -10,12 +10,12 @@ Playground에서 만들고 싶은 화면을 자연어로 설명하면, 디자인
 
 ## 사용법
 
-1. [Playground](https://huxley-ui.vercel.app/playground)에서 만들고 싶은 UI를 자연어로 설명
-2. AI가 huxley-ui 컴포넌트로 조합된 결과를 생성
+1. [Playground](https://jamie-ui.vercel.app/playground)에서 만들고 싶은 UI를 자연어로 설명
+2. AI가 jamie-ui 컴포넌트로 조합된 결과를 생성
 3. 생성된 코드를 복사 → 내 프로젝트에 붙여넣기
 4. 필요에 맞게 수정
 
-개별 컴포넌트의 props나 variant를 확인하려면 [문서 사이트](https://huxley-ui.vercel.app)를 참고하세요.
+개별 컴포넌트의 props나 variant를 확인하려면 [문서 사이트](https://jamie-ui.vercel.app)를 참고하세요.
 
 ### 누가, 언제 쓰는가
 
@@ -39,14 +39,18 @@ Playground에서 만들고 싶은 화면을 자연어로 설명하면, 디자인
 | Accordion | 접기/펼치기 패널 |
 | Alert Dialog | 확인/취소가 필요한 알림 |
 | Avatar | 사용자 프로필 이미지 |
+| Breadcrumb | 경로 탐색 |
 | Button | 버튼 (아이콘 버튼, 로딩 상태 지원) |
 | Card | 카드 컨테이너 |
 | Checkbox | 체크박스 |
 | Checkbox Group | 체크박스 그룹 |
 | Combobox | 검색 가능한 드롭다운 |
+| Data Table | 정렬/페이지네이션 테이블 |
 | Dialog | 모달 다이얼로그 |
 | Field | 폼 필드 (label, description, error) |
+| Input | 텍스트 입력 필드 |
 | Menu | 컨텍스트 메뉴 |
+| Panel | 패널 컨테이너 |
 | Popover | 팝오버 |
 | Radio | 라디오 버튼 그룹 |
 | Select | 드롭다운 선택 |
@@ -54,8 +58,11 @@ Playground에서 만들고 싶은 화면을 자연어로 설명하면, 디자인
 | Slider | 슬라이더 |
 | Stack | Flex 레이아웃 컨테이너 |
 | Switch | 토글 스위치 |
-| Text Field | 텍스트 입력 필드 |
+| Table | 기본 테이블 |
+| Tabs | 탭 네비게이션 |
+| Theme Toggle | 다크/라이트 모드 전환 |
 | Toast | 토스트 알림 |
+| Tooltip | 툴팁 |
 
 ## Playground — 어떻게 동작하는가
 
@@ -112,4 +119,4 @@ bun run check     # 린트
 
 **Q. Playground에서 생성된 결과가 마음에 안 들면?**
 
-생성된 코드는 시작점입니다. 복사 후 자유롭게 수정하세요. 개별 컴포넌트의 props와 variant는 [문서 사이트](https://huxley-ui.vercel.app)에서 확인할 수 있습니다.
+생성된 코드는 시작점입니다. 복사 후 자유롭게 수정하세요. 개별 컴포넌트의 props와 variant는 [문서 사이트](https://jamie-ui.vercel.app)에서 확인할 수 있습니다.

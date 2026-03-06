@@ -1,4 +1,4 @@
-# AGENTS.md — huxley-ui
+# AGENTS.md — jamie-ui
 
 ## Project Overview
 
@@ -15,7 +15,7 @@ When implementing or modifying components, **always visually verify** against th
 Bun monorepo with workspaces:
 
 ```
-huxley-ui/
+jamie-ui/
   packages/
     ui/              # Component library (the actual product)
       components/    # One file per component (e.g. button.tsx)
@@ -33,19 +33,19 @@ huxley-ui/
       lib/           # Docs utilities
 ```
 
-### Package: `@huxley-ui/ui`
+### Package: `@jamie-ui/ui`
 
 - **No build step** — exports raw `.tsx` / `.ts` files directly via `exports` field
 - Components are `"use client"` by default
 - Each component wraps a Base UI primitive with Tailwind styling
 - Uses `class-variance-authority` (cva) for variant management
-- Uses custom `cn()` utility (tailwind-merge only, no clsx)
+- Uses custom `cn()` utility (clsx + extendTailwindMerge with typography class groups)
 
-### Package: `@huxley-ui/json-render`
+### Package: `@jamie-ui/json-render`
 
-- Bridges `@huxley-ui/ui` components with `@json-render/core` / `@json-render/react`
+- Bridges `@jamie-ui/ui` components with `@json-render/core` / `@json-render/react`
 - **catalog.ts** — Zod schemas defining each component's props and descriptions (used for AI prompt generation via `buildUserPrompt`)
-- **registry.tsx** — Maps catalog entries to actual React components from `@huxley-ui/ui`
+- **registry.tsx** — Maps catalog entries to actual React components from `@jamie-ui/ui`
 - Used in `apps/docs/app/playground/` for AI-driven UI generation
 - **No build step** — raw `.ts` / `.tsx` exports like the ui package
 - Adding a new component to json-render:
@@ -53,7 +53,7 @@ huxley-ui/
   2. Add React render mapping in `registry.tsx`
   3. Re-export is automatic via `index.ts`
 
-### App: `@huxley-ui/docs`
+### App: `@jamie-ui/docs`
 
 - Next.js 16 (App Router) + fumadocs-mdx + fumadocs-ui
 - MDX content lives in `apps/docs/content/docs/`
@@ -69,7 +69,7 @@ huxley-ui/
 | UI Primitives | @base-ui/react | ^1.1 |
 | Styling | Tailwind CSS | v4 |
 | Variants | class-variance-authority | 0.7.1 |
-| Class Merging | tailwind-merge | ^3.0 |
+| Class Merging | tailwind-merge + clsx | ^3.0 / ^2.1 |
 | Framework (docs) | Next.js | ^16.1 |
 | Docs Engine | fumadocs-mdx / fumadocs-ui | ^14 / ^16 |
 | Linter | Biome | 2.3.14 |
@@ -140,13 +140,22 @@ export function Component({ ... }: Props) { ... }
 
 ### `cn()` Utility
 
-Custom lightweight alternative — uses `tailwind-merge` only, no `clsx`:
+Uses `clsx` + `extendTailwindMerge` with custom typography class groups:
 
 ```ts
-import { twMerge } from "tailwind-merge"
-type ClassValue = string | boolean | undefined | null
-export function cn(...inputs: ClassValue[]): string {
-  return twMerge(inputs.filter(Boolean).join(" "))
+import { type ClassValue, clsx } from 'clsx'
+import { extendTailwindMerge } from 'tailwind-merge'
+
+const twMerge = extendTailwindMerge<'typography'>({
+  extend: {
+    classGroups: {
+      typography: ['body-10-regular', 'body-12-medium', ...],
+    },
+  },
+})
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
 ```
 
@@ -175,7 +184,7 @@ Each component doc in `apps/docs/content/docs/components/{name}.mdx`:
   - Text: `text-{category}` (e.g. `text-inverse`, `text-error`, `text-default`)
   - Fill (icons): `fill-{category}` (e.g. `fill-disabled`)
 - Custom typography utilities defined via `@utility` (e.g. `body-12-medium`, `title-16-semibold`)
-- Token files: `palette.css` (primitives), `semantic-light.css` + `semantic-dark.css` (semantic tokens), `dark.css` (dark mode variant), `shadow.css`, `typography.css`
+- Token files: `palette.css` (primitives), `semantic-light.css` + `semantic-dark.css` (semantic tokens), `dark.css` (dark mode variant), `shadow.css`, `typography.css`, `animation.css` (animations)
 - Entry point: `packages/ui/tailwind.css` imports all token files
 
 ## Adding a New Component
@@ -194,6 +203,6 @@ Each component doc in `apps/docs/content/docs/components/{name}.mdx`:
 - **bunfig.toml** sets `exact = true` for install — lockfile versions are exact
 - **Tailwind v4** — no `tailwind.config.js`, configuration is CSS-based
 - **Base UI =/= MUI** — Base UI is the headless layer, not Material UI. Don't import from `@mui/*`
-- **cn() is NOT clsx** — it only accepts `string | boolean | undefined | null`, not objects or arrays
+- **cn() uses clsx** — accepts any `ClassValue` type (strings, objects, arrays, conditionals)
 - **`@phosphor-icons/react`** uses `Icon` postfix (v2.1.10+) — `SpinnerGapIcon`, not `SpinnerGap`
 - **Base UI floating components** (Select, Combobox, Menu, Popover) — `Portal > Positioner > Popup` 순서 필수. `Positioner` 빠뜨리면 런타임 에러 발생
